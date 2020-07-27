@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+<listeners>
+		<listener class-name="Reports.TestListener" />
+	</listeners>
+<!-- Suite -->
+<parameter name="browser" value="chrome"/>
+<parameter name="implicitWait" value="60"/>
+<test name="Functional">
+<classes>
+<!--<class name="TestCases.SeleniumByTestNG"/>-->
+<class name="TestCases.HeroTest"/>
+<class name="TestCases.FacebookPageTest"/>
+</classes>
+</test>
+<!-- Test -->
+
+</suite>
