@@ -18,7 +18,7 @@ public class CheckOutPageLIB {
 			
 			ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(CheckOutPageRepository.proceedToCheckout));
 		}else {
-			Assert.assertTrue(true,"Pop up is not present");
+			Assert.assertTrue(true,"Pop up is not present!");
 		}
 
 		if (GetBrowserElement.getWebElementByXpath(CheckOutPageRepository.proceedToCheckoutButton).isDisplayed()==true) {
