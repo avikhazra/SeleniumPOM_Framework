@@ -20,4 +20,5 @@ public class LoginPageLIB extends HHomePageLIB {
 				System.out.println("test case pass");
 		
 	}
+		System.out.println("github");
 }}
