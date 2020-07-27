@@ -4,7 +4,7 @@ import org.testng.annotations.*;
 
 import Reports.TestListener;
 
-public class TestNgFrameWorkBasic extends ExcelRead  {
+public class TestNgFrameWorkBasic   {
 	
 	@BeforeSuite
 	public void SetDataProvider() {

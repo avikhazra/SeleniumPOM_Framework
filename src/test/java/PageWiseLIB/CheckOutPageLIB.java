@@ -7,7 +7,7 @@ import CommonLIB.ObjectCreationClass;
 import Repositories.CheckOutPageRepository;
 
 
-public class CheckOutPageLIB extends SearchDeatailsPageLIB {
+public class CheckOutPageLIB {
 
 	public void AddtoCart() throws Exception {
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(CheckOutPageRepository.AddtoCart));

@@ -12,17 +12,8 @@ import CommonLIB.ObjectCreationClass;
 import CommonLIB.TestNgFrameWorkBasic;
 import Repositories.CommonRepository;
 
-public class SeleniumByTestNG   {
-	
-	@BeforeTest
-	@Parameters({ "browser","implicitWait" })
-	public void BeforeTest(String browser,String implicitWait) {
-		GetBrowserElement.BrowserLaunch(browser, implicitWait);
-	}
-	@AfterTest
-	public void TearDown() {
-		GetBrowserElement.BrowserClosing();		
-	}
+public class SeleniumByTestNG extends TestNgFrameWorkBasic  {
+
 	@DataProvider
 	public Object[][] getTestData() throws FilloException{
 		Object data[][] = null;

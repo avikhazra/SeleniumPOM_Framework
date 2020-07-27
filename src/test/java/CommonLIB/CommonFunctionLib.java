@@ -9,7 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
 
-public class CommonFunctionLib extends GetBrowserElement{
+public class CommonFunctionLib {
 	public static  RemoteWebDriver driver;
 	private static String previuosDomproperty=null;
 	private static String AfterDomproperty=null;

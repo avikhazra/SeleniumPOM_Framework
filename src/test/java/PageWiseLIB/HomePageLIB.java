@@ -3,7 +3,7 @@ import CommonLIB.GetBrowserElement;
 import CommonLIB.ObjectCreationClass;
 import Repositories.HomepageRepository;
 
-public class HomePageLIB extends ObjectCreationClass{
+public class HomePageLIB {
 
 	public void SearchProduct(String testdata) throws Exception {
 		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(HomepageRepository.searchBar), testdata);

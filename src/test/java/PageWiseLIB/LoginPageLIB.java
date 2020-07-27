@@ -4,7 +4,7 @@ import CommonLIB.ObjectCreationClass;
 
 import Repositories.LoginPageRepository;
 
-public class LoginPageLIB extends HHomePageLIB {
+public class LoginPageLIB {
 	
 	public void userInfo(String name, String pwd) throws Exception {
 		

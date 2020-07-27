@@ -44,8 +44,8 @@ public class GetBrowserElement   {
 
 	public static  void BrowserClosing() {
 		
-		//driver.close();
-		//driver.quit();
+		driver.close();
+		driver.quit();
 
 	}
 	/***********************************************************************

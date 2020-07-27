@@ -5,10 +5,10 @@ import CommonLIB.GetBrowserElement;
 import CommonLIB.ObjectCreationClass;
 import Repositories.FacebookPageRepository;
 
-public class FacebookPageLIB extends ObjectCreationClass {
+public class FacebookPageLIB {
 	
 	public void dropDown(WebElement name, String value) throws Exception{
-	ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(FacebookPageRepository.month),);
+	//ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(FacebookPageRepository.month),);
 	//Select m = new Select(month);
 	//m.selectByVisibleText("May");	
 	}

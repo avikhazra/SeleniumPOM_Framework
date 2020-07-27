@@ -16,7 +16,7 @@ import com.codoid.products.fillo.Fillo;
 import com.codoid.products.fillo.Recordset;
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-public class ExcelRead extends CommonFunctionLib {
+public class ExcelRead  {
 		
 		public static Object[][] ExtractDataWithOutFillo(String Excelpath,String sheetName) throws InvalidFormatException {
 			Workbook book = null;

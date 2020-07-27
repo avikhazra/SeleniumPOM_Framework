@@ -3,9 +3,10 @@ package TestCases;
 import org.testng.annotations.Test;
 
 import CommonLIB.ObjectCreationClass;
+import CommonLIB.TestNgFrameWorkBasic;
 import Repositories.CommonRepository;
 
-public class HeroTest {
+public class HeroTest extends TestNgFrameWorkBasic{
 	
 	@Test()
 	public void TestCases2() throws Exception{

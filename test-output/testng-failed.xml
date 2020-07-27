@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
   <parameter name="implicitWait" value="60"/>
   <parameter name="browser" value="chrome"/>
   <listeners>
@@ -10,7 +10,11 @@
     <classes>
       <class name="TestCases.HeroTest">
         <methods>
+          <include name="SetDataProvider"/>
           <include name="TestCases2"/>
+          <include name="TearDown"/>
+          <include name="Cleaning"/>
+          <include name="BeforeTest"/>
         </methods>
       </class> <!-- TestCases.HeroTest -->
     </classes>
