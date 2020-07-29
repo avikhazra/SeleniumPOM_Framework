@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="18147" started-at="2020-07-27T17:33:25Z" finished-at="2020-07-27T17:33:44Z">
+  <suite name="Suite" duration-ms="20628" started-at="2020-07-29T19:09:58Z" finished-at="2020-07-29T19:10:19Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="18147" started-at="2020-07-27T17:33:25Z" finished-at="2020-07-27T17:33:44Z">
+    <test name="Functional" duration-ms="20628" started-at="2020-07-29T19:09:58Z" finished-at="2020-07-29T19:10:19Z">
       <class name="TestCases.HeroTest">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="15" started-at="2020-07-27T17:33:25Z" finished-at="2020-07-27T17:33:25Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="30" started-at="2020-07-29T19:09:58Z" finished-at="2020-07-29T19:09:58Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7116" started-at="2020-07-27T17:33:25Z" finished-at="2020-07-27T17:33:33Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="8807" started-at="2020-07-29T19:09:58Z" finished-at="2020-07-29T19:10:07Z">
           <params>
             <param index="0">
               <value>
@@ -27,15 +27,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="PASS" signature="TestCases2()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="TestCases2" duration-ms="9784" started-at="2020-07-27T17:33:33Z" finished-at="2020-07-27T17:33:42Z">
+        <test-method status="PASS" signature="TestCases2()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="TestCases2" duration-ms="6541" started-at="2020-07-29T19:10:07Z" finished-at="2020-07-29T19:10:13Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestCases2 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="TearDown" is-config="true" duration-ms="876" started-at="2020-07-27T17:33:43Z" finished-at="2020-07-27T17:33:44Z">
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="TearDown" is-config="true" duration-ms="4779" started-at="2020-07-29T19:10:14Z" finished-at="2020-07-29T19:10:19Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="Cleaning" is-config="true" duration-ms="51" started-at="2020-07-27T17:33:44Z" finished-at="2020-07-27T17:33:44Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.HeroTest@4f7d0008]" name="Cleaning" is-config="true" duration-ms="67" started-at="2020-07-29T19:10:20Z" finished-at="2020-07-29T19:10:20Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->
