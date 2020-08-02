@@ -117,23 +117,61 @@ public class GetBrowserElement   {
 	/***********************************************
 	 *  FunctionName: PageReadyStateCheck
 	 * Argument : intmilisecond
+	 * @return 
 	 * @throws InterruptedException 
 	 * 
 	 *************************************************/
-	public static void PageReadyStateCheck(int miliSeconds) throws Exception {
-	    
-		    if (getJavascriptExecuter().executeScript("return document.readyState").toString().equals("complete")) {
-		        return;
-		    }
+	public static void PageReadyStateCheck(int intmilisecond) throws Exception {
+		final JavascriptExecutor js = (JavascriptExecutor)driver;
+		try {
+			WebDriverWait wait = new WebDriverWait(driver,intmilisecond);
+			
+			
+			
+			wait.until(new ExpectedCondition<Boolean>(){
 
-		    for (int i = 0; i < miliSeconds; i++) {
-		    	PauseExecution(3);
-		        if (getJavascriptExecuter().executeScript("return document.readyState").toString().equals("complete")) {
-		            break;
-		        }
-		    }
-		    PauseExecution(miliSeconds);    
-		    
+				public Boolean apply(WebDriver driver) {
+					
+					
+					try {
+					
+						Thread.sleep(1000);
+					
+					} catch (InterruptedException e) {
+					}
+					return js.executeScript("return document.readyState").equals("complete");
+				}
+			});
+			
+			
+			
+			
+			
+			wait.until(new ExpectedCondition<Boolean>(){
+
+				public Boolean apply(WebDriver driver) {
+
+					while(true) {
+						if((Boolean) js.executeScript("return jQuery.active==0")) {
+							
+							break;
+						}
+						try {
+							Thread.sleep(1000);
+						}catch(Exception ex) {
+						}
+					}
+					return true;
+				}
+			});
+			while((!js.executeScript("return document.readyState").equals("complete"))) {
+				Thread.sleep(1000);
+			}
+			
+			PauseExecution(1000);
+		}catch(Exception ex) {
+			
+		}
 	}
 	/***************************************************************
 	 *  FunctionName: PauseExecution
@@ -173,7 +211,8 @@ public class GetBrowserElement   {
 	}
 	/***********************************************************
 	 *  FunctionName: HighlisghtThexpath
-	 * Argument : Xpath
+	 * Argument : WebElemnt
+	 * Overloading
 	 **********************************************************/
 	public  static void  HighlisghtThexpath(WebElement ele){
 	

@@ -8,6 +8,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 
+import Repositories.TestingNinjaSeachPage;
+
 
 public class CommonFunctionLib {
 	public static  RemoteWebDriver driver;
@@ -224,11 +226,11 @@ public class CommonFunctionLib {
 	 * @throws IOException 
 	 ***************************************************/
 	public  String  ReplacedXpath( By Xpath, String ReplacedValue,String Value) {
-		
+
 		return	Xpath.toString().replace(ReplacedValue, Value.toString()).replace("By.xpath:", "");
-		
+
 	}
-	
+
 	/*************************************************
 	 *  FunctionName: GetElementText
 	 * Argument : WebElement
@@ -237,12 +239,85 @@ public class CommonFunctionLib {
 	public  String  GetElementText( WebElement element) {
 		String Text="";
 		try {
-	     Text= element.getText().toString();
-	     Assert.assertTrue(true,"Text is found");
+			Text= element.getText().toString();
+			Assert.assertTrue(true,"Text is found");
 		}catch(Exception e) {
 			Assert.assertTrue(false,e.toString());	
 		}
 		return Text;
 	}
+	/**************************************
+	 *  FunctionName: SelectRadioButton
+	 * Argument : Xpath
+	 * @throws IOException 
+	 * @throws FindFailed 
+	 ***************************************/
+	public void SelectRadioButton(WebElement element) {
+		boolean checkCondition;
+		try {
+			if (element.isSelected()) {
+				Assert.assertTrue(false,"Element is already Selected.");
+			}else {
+
+				element.click();
+				checkCondition=element.isSelected();
+				GetBrowserElement.PauseExecution(1000);
+				if (checkCondition==true||element.getAttribute("checked")=="checked") {
+					Assert.assertTrue(true,"Selenium  is checked ");
+				}else {
+					Assert.assertTrue(false,"Selenium  is checked ");
+				}
+
+			}
+
+		}catch(Exception ex) {
+
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}
+	}
+	
+	/********************************************
+	 *  FunctionName: RadioButtonStatusChecking
+	 * Argument : Xpath
+	 * @throws IOException 
+	 * 
+	 **********************************************/
+	public void RadioButtonStatusChecking(WebElement element ,boolean value) {
+		
+		try {
+			if(element!=null) {
+			
+				boolean checkbox =element.isSelected();
+				String Checkattribute= element.getAttribute("checked");
+				if ((Checkattribute!="checked" && checkbox== false)&& value==false) {
+					Assert.assertTrue(true,"radio button is not selected");
+
+				}else {
+					if ((Checkattribute=="checked" && checkbox== true) && value==true) {
+						Assert.assertTrue(true,"radio button is selected");
+					}
+				}
+			}
+		}catch(Exception ex) {
+			
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}
+	}
+	/********************************************
+	 *  FunctionName: ValidationText
+	 * Argument : WebElement
+	 * @throws IOException 
+	 * 
+	 **********************************************/
+	public void ValidationText(WebElement element,String Value) {
+		GetBrowserElement.HighlisghtThexpath(element);
+		if(ObjectCreationClass.ComLiB.GetElementText(element).equalsIgnoreCase(Value)) {
+			Assert.assertTrue(true,"Validation is done");	
+		}else {
+			Assert.assertTrue(true,"Validation is failed");	
+		}
+	}
+
+
 }
 
