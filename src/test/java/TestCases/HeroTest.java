@@ -8,7 +8,7 @@ import Repositories.CommonRepository;
 
 public class HeroTest extends TestNgFrameWorkBasic{
 	
-	@Test()
+	@Test
 	public void TestCases2() throws Exception{
 		ObjectCreationClass.ComLiB.FocusOnUrl(CommonRepository.url1);
 		

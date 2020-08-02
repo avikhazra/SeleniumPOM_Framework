@@ -9,10 +9,33 @@
 <table>
 <tr><th>Test</th><th># Passed</th><th># Skipped</th><th># Failed</th><th>Time (ms)</th><th>Included Groups</th><th>Excluded Groups</th></tr>
 <tr><th colspan="7">Suite</th></tr>
-<tr><td><a href="#t0">Functional</a></td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td class="num">20,628</td><td></td><td></td></tr>
+<tr><td><a href="#t0">Functional</a></td><td class="num">0</td><td class="num">0</td><td class="num attn">1</td><td class="num">16,078</td><td></td><td></td></tr>
 </table>
-<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Functional &#8212; passed</th></tr><tr class="passedeven"><td rowspan="1">TestCases.HeroTest</td><td><a href="#m0">TestCases2</a></td><td rowspan="1">1596049807231</td><td rowspan="1">6541</td></tr></tbody>
+<table id='summary'><thead><tr><th>Class</th><th>Method</th><th>Start</th><th>Time (ms)</th></tr></thead><tbody><tr><th colspan="4">Suite</th></tr></tbody><tbody id="t0"><tr><th colspan="4">Functional &#8212; failed</th></tr><tr class="failedeven"><td rowspan="1">TestCases.TestingNinjaTestCase</td><td><a href="#m0">TestingNinjaTest1</a></td><td rowspan="1">1596384875825</td><td rowspan="1">8501</td></tr></tbody>
 </table>
-<h2>Functional</h2><h3 id="m0">TestCases.HeroTest#TestCases2</h3><table class="result"><tr><th class="invisible"/></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
+<h2>Functional</h2><h3 id="m0">TestCases.TestingNinjaTestCase#TestingNinjaTest1</h3><table class="result"><tr><th>Exception</th></tr><tr><td><div class="stacktrace">org.openqa.selenium.InvalidSelectorException: invalid selector: Unable to locate an element with the xpath expression By.xpath: //img[@title=&apos;MacBook Air&apos;]/ancestor::a[1]/ancestor::div[1]/ancestor::div[1]/descendant::div[2]/descendant::div[2]/descendant::button[1] because of the following error:
+SyntaxError: Failed to execute &apos;evaluate&apos; on &apos;Document&apos;: The string &apos;By.xpath: //img[@title=&apos;MacBook Air&apos;]/ancestor::a[1]/ancestor::div[1]/ancestor::div[1]/descendant::div[2]/descendant::div[2]/descendant::button[1]&apos; is not a valid XPath expression.
+  (Session info: chrome=84.0.4147.105)
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/invalid_selector_exception.html
+Build info: version: &apos;3.11.0&apos;, revision: &apos;e59cfb3&apos;, time: &apos;2018-03-11T20:26:55.152Z&apos;
+System info: host: &apos;DESKTOP-RKQETD7&apos;, ip: &apos;192.168.0.4&apos;, os.name: &apos;Windows 10&apos;, os.arch: &apos;amd64&apos;, os.version: &apos;10.0&apos;, java.version: &apos;1.8.0_251&apos;
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 84.0.4147.105, chrome: {chromedriverVersion: 84.0.4147.30 (48b3e868b4cc0..., userDataDir: C:\Users\User\AppData\Local...}, goog:chromeOptions: {debuggerAddress: localhost:54063}, javascriptEnabled: true, networkConnectionEnabled: false, pageLoadStrategy: normal, platform: WINDOWS, platformName: WINDOWS, proxy: Proxy(), setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:virtualAuthenticators: true}
+Session ID: 45b2fe59b9f84ab9ce13a1e83f53ddd8
+*** Element info: {Using=xpath, value=By.xpath: //img[@title=&apos;MacBook Air&apos;]/ancestor::a[1]/ancestor::div[1]/ancestor::div[1]/descendant::div[2]/descendant::div[2]/descendant::button[1]}
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.createException(W3CHttpResponseCodec.java:187)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:122)
+	at org.openqa.selenium.remote.http.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:49)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:158)
+	at org.openqa.selenium.remote.service.DriverCommandExecutor.execute(DriverCommandExecutor.java:83)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:545)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:346)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementsByXPath(RemoteWebDriver.java:425)
+	at org.openqa.selenium.By$ByXPath.findElements(By.java:356)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElements(RemoteWebDriver.java:307)
+	at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:84)
+	at PageWiseLIB.TestingNinjaLIB.SelectNinjaProduct(TestingNinjaLIB.java:37)
+	at TestCases.TestingNinjaTestCase.TestingNinjaTest1(TestingNinjaTestCase.java:24)
+... Removed 29 stack frames</div></td></tr></table><p class="totop"><a href="#summary">back to summary</a></p>
 </body>
 </html>

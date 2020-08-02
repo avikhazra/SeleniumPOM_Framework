@@ -7,6 +7,7 @@ import PageWiseLIB.HomePageLIB;
 import PageWiseLIB.HomePageLIB;
 import PageWiseLIB.LoginPageLIB;
 import PageWiseLIB.SearchDeatailsPageLIB;
+import PageWiseLIB.TestingNinjaLIB;
 
 public class ObjectCreationClass {
 	 public static CommonFunctionLib ComLiB = new CommonFunctionLib(); // common
@@ -22,4 +23,7 @@ public class ObjectCreationClass {
 	 
 	 //faCebook page- third TC
 	 public static FacebookPageLIB fc= new FacebookPageLIB();
+	 
+	 //Testing Nija
+	 public static TestingNinjaLIB TN= new TestingNinjaLIB();
 }

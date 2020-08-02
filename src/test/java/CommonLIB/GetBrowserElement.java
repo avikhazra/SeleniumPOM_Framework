@@ -171,7 +171,24 @@ public class GetBrowserElement   {
 		}
 
 	}
+	/***********************************************************
+	 *  FunctionName: HighlisghtThexpath
+	 * Argument : Xpath
+	 **********************************************************/
+	public  static void  HighlisghtThexpath(WebElement ele){
+	
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		try {
+			
+			
+				js.executeScript("arguments[0].setAttribute('style', 'border: 3px solid red;');", ele);
+				Thread.sleep(2000);
+			
+		}catch(Exception ex) {
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}
 
+	}
 	/*************************************************
 	 *  FunctionName: ScrollVieWObject
 	 * Argument : WebElement

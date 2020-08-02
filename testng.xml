@@ -9,9 +9,7 @@
 	<parameter name="implicitWait" value="60" />
 	<test name="Functional">
 		<classes>
-			<!-- class name="TestCases.SeleniumByTestNG"/-->
-			<class name="TestCases.HeroTest" />
-			<!-- class name="TestCases.FacebookPageTest"/ -->
+			<class name="TestCases.TestingNinjaTestCase"/>
 		</classes>
 	</test>
 	<!-- Test -->

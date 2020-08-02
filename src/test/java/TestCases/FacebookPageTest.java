@@ -8,7 +8,7 @@ import Repositories.CommonRepository;
 
 public class FacebookPageTest extends TestNgFrameWorkBasic{
 	
-	@Test()
+	@Test
 	public void TestCases3() throws Exception{
 		ObjectCreationClass.ComLiB.FocusOnUrl(CommonRepository.url2);
 		

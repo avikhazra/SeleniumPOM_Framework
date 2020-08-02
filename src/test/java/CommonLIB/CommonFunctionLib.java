@@ -82,11 +82,141 @@ public class CommonFunctionLib {
 			}
 
 		}catch(Exception ex) {
-			
+
 			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
 		}
 
-	
+
 	}	
+
+	///New .....Code for testing Ninja Web Site
+
+	/*******************************************
+	 *  FunctionName: CheckCheckBox
+	 * Argument : Xpath
+	 * @throws InterruptedException 
+
+	 *******************************************/
+	public void CheckCheckBox(WebElement element, String Check_Uncheck) throws InterruptedException {
+
+		boolean checkCondition;
+		try {
+			if(!Check_Uncheck.equalsIgnoreCase("")) {
+				if (Check_Uncheck.equalsIgnoreCase("Check")){
+					if (element.isSelected()) {
+						Assert.assertTrue(false,"Element is already Checked. It can not be check again checking may causes Unchecking");
+					}else {
+						element.click();
+						checkCondition=element.isSelected();
+						GetBrowserElement.PauseExecution(100);
+						if(checkCondition==true) {
+							Assert.assertTrue(true,"Element is  Checked.");
+						}else {
+							element.sendKeys(Keys.SPACE);
+							GetBrowserElement.PauseExecution(100);
+							checkCondition=element.isSelected();
+							if(checkCondition==true) {
+								Assert.assertTrue(true,"Element is  Checked.");
+							}else {
+								Assert.assertTrue(true,"Element is not  Checked.");
+							}
+						}
+					}
+
+				}else if (Check_Uncheck.equalsIgnoreCase("unCheck")){
+					if (!element.isSelected()) {
+						Assert.assertTrue(false,"Element is already UnChecked. It can not be check again checking may causes Unchecking");
+					}else {
+						element.click();
+						checkCondition=element.isSelected();
+						GetBrowserElement.PauseExecution(100);
+						if(checkCondition==false) {
+							Assert.assertTrue(true,"Element is  UnChecked.");
+						}else {
+							element.sendKeys(Keys.SPACE);
+							GetBrowserElement.PauseExecution(100);
+							checkCondition=element.isSelected();
+							if(checkCondition==false) {
+								Assert.assertTrue(true,"Element is  UnChecked.");
+							}else {
+								Assert.assertTrue(false,"Element is not unChecked.");
+							}
+						}
+					}
+
+
+				}
+			}else {
+				Assert.assertTrue(false,"Check_Uncheck value cannot be blank");
+			}
+
+		}catch(Exception ex) {
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}
+
+
+	}
+
+	/******************************************
+	 *  FunctionName: VerifyEnabilityCheck
+	 * Argument :
+	 * @throws IOException 
+	 *******************************************/
+	public void VerifyEnabilityCheck(WebElement element,String strtestdata)  {
+		if (strtestdata.equals("")) {
+			if (element.isEnabled()) {
+
+
+				Assert.assertTrue(true, "Element is  Enabled.");	
+			}else {
+
+				Assert.assertTrue(false,"Element is not  Enabled.");	
+			}	
+
+		}else {
+			if(strtestdata.equalsIgnoreCase("enable")||strtestdata.equalsIgnoreCase("disable")) {
+				if(strtestdata.equalsIgnoreCase("enable")){
+					if (element.isDisplayed()) {
+						try {
+							String AttributeVlaue = element.getAttribute("disabled");
+							if (AttributeVlaue.equalsIgnoreCase("true")) {
+								Assert.assertTrue(false,"Element is  not Enabled.and test data: "+strtestdata);
+							}else {
+								Assert.assertTrue(true,"Element is   Enabled.and test data: "+strtestdata);
+							}
+						}catch(Exception ex) {
+
+						}		
+
+					}else {
+						Assert.assertTrue(false,"Element is  not Enabled.and test data: "+strtestdata);
+					}
+
+				}else {
+					if (!element.isDisplayed()) {
+						Assert.assertTrue(true, "Element is  not Enabled.and test data: "+strtestdata);	
+					}else {
+						try {
+							String AttributeVlaue = element.getAttribute("disabled");
+							if (AttributeVlaue.equalsIgnoreCase("true")) {
+								Assert.assertTrue(true,"Element is  not Enabled.and test data: "+strtestdata);
+							}else {
+								Assert.assertTrue(false,"Element is   Enabled.and test data: "+strtestdata);
+							}
+						}catch(Exception ex) {
+
+						}
+
+					}
+				}
+			}else {
+				Assert.assertTrue(false,"PLease check data");	
+			}
+
+
+
+		}
+
+	}
 }
 

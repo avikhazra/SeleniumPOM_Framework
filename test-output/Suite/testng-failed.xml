@@ -8,15 +8,15 @@
   </listeners>
   <test thread-count="5" name="Functional(failed)">
     <classes>
-      <class name="TestCases.HeroTest">
+      <class name="TestCases.TestingNinjaTestCase">
         <methods>
           <include name="SetDataProvider"/>
-          <include name="TestCases2"/>
           <include name="TearDown"/>
           <include name="Cleaning"/>
+          <include name="TestingNinjaTest1"/>
           <include name="BeforeTest"/>
         </methods>
-      </class> <!-- TestCases.HeroTest -->
+      </class> <!-- TestCases.TestingNinjaTestCase -->
     </classes>
   </test> <!-- Functional(failed) -->
 </suite> <!-- Failed suite [Suite] -->

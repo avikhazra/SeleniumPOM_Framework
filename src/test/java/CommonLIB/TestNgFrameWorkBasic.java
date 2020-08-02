@@ -18,7 +18,7 @@ public class TestNgFrameWorkBasic   {
 	}
 	@AfterTest
 	public void TearDown() {
-		GetBrowserElement.BrowserClosing();		
+		//GetBrowserElement.BrowserClosing();		
 	}
 	
 	@AfterSuite
