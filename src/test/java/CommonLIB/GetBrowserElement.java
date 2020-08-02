@@ -132,7 +132,7 @@ public class GetBrowserElement   {
 		            break;
 		        }
 		    }
-		    
+		    PauseExecution(miliSeconds);    
 		    
 	}
 	/***************************************************************
@@ -200,4 +200,5 @@ public class GetBrowserElement   {
 			Assert.assertTrue(true,"Scrolled Perfectly");
 		}catch(Exception ex) {}
 	}
+	
 }

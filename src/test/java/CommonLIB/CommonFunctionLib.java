@@ -218,5 +218,31 @@ public class CommonFunctionLib {
 		}
 
 	}
+	/*************************************************
+	 *  FunctionName: ReplacedXpath
+	 * Argument : WebElement
+	 * @throws IOException 
+	 ***************************************************/
+	public  String  ReplacedXpath( By Xpath, String ReplacedValue,String Value) {
+		
+		return	Xpath.toString().replace(ReplacedValue, Value.toString()).replace("By.xpath:", "");
+		
+	}
+	
+	/*************************************************
+	 *  FunctionName: GetElementText
+	 * Argument : WebElement
+	 * @throws IOException 
+	 ***************************************************/
+	public  String  GetElementText( WebElement element) {
+		String Text="";
+		try {
+	     Text= element.getText().toString();
+	     Assert.assertTrue(true,"Text is found");
+		}catch(Exception e) {
+			Assert.assertTrue(false,e.toString());	
+		}
+		return Text;
+	}
 }
 
