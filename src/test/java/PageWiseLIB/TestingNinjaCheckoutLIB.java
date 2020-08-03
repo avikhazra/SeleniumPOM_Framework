@@ -14,7 +14,7 @@ public class TestingNinjaCheckoutLIB {
 
 	public void GotoCheckOutPage(String Value) throws Exception {
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.CheckOutButton));
-		GetBrowserElement.PageReadyStateCheck(1000);
+		GetBrowserElement.PageReadyStateCheck(100);
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaSeachPage.ProductName),Value);
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.CheckOutLink));
 	}

@@ -135,7 +135,7 @@ public class GetBrowserElement   {
 					
 					try {
 					
-						Thread.sleep(1000);
+						Thread.sleep(100);
 					
 					} catch (InterruptedException e) {
 					}
@@ -157,7 +157,7 @@ public class GetBrowserElement   {
 							break;
 						}
 						try {
-							Thread.sleep(1000);
+							Thread.sleep(100);
 						}catch(Exception ex) {
 						}
 					}
@@ -165,7 +165,7 @@ public class GetBrowserElement   {
 				}
 			});
 			while((!js.executeScript("return document.readyState").equals("complete"))) {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			}
 			
 			PauseExecution(1000);

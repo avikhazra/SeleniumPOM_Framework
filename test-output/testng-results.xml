@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="131487" started-at="2020-08-03T09:17:31Z" finished-at="2020-08-03T09:19:42Z">
+  <suite name="Suite" duration-ms="114331" started-at="2020-08-03T09:20:44Z" finished-at="2020-08-03T09:22:39Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="131487" started-at="2020-08-03T09:17:31Z" finished-at="2020-08-03T09:19:42Z">
+    <test name="Functional" duration-ms="114331" started-at="2020-08-03T09:20:44Z" finished-at="2020-08-03T09:22:39Z">
       <class name="TestCases.TestingNinjaTestCase">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="16" started-at="2020-08-03T09:17:31Z" finished-at="2020-08-03T09:17:31Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="14" started-at="2020-08-03T09:20:44Z" finished-at="2020-08-03T09:20:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7057" started-at="2020-08-03T09:17:31Z" finished-at="2020-08-03T09:17:38Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="6925" started-at="2020-08-03T09:20:44Z" finished-at="2020-08-03T09:20:51Z">
           <params>
             <param index="0">
               <value>
@@ -27,15 +27,15 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="PASS" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="119187" started-at="2020-08-03T09:17:38Z" finished-at="2020-08-03T09:19:37Z">
+        <test-method status="PASS" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="106134" started-at="2020-08-03T09:20:51Z" finished-at="2020-08-03T09:22:37Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestingNinja_Product_guest_book_Test1 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="4796" started-at="2020-08-03T09:19:38Z" finished-at="2020-08-03T09:19:42Z">
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="919" started-at="2020-08-03T09:22:38Z" finished-at="2020-08-03T09:22:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="95" started-at="2020-08-03T09:19:43Z" finished-at="2020-08-03T09:19:43Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="89" started-at="2020-08-03T09:22:39Z" finished-at="2020-08-03T09:22:39Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->
