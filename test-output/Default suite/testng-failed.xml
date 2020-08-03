@@ -10,6 +10,7 @@
           <include name="TearDown"/>
           <include name="Cleaning"/>
           <include name="BeforeTest"/>
+          <include name="TestingNinja_Product_guest_book_Test1"/>
         </methods>
       </class> <!-- TestCases.TestingNinjaTestCase -->
     </classes>

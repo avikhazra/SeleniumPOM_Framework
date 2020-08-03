@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" ignored="0" total="2" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="228963" started-at="2020-08-03T14:26:37Z" finished-at="2020-08-03T14:30:26Z">
+  <suite name="Suite" duration-ms="162856" started-at="2020-08-03T14:38:25Z" finished-at="2020-08-03T14:41:08Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="228963" started-at="2020-08-03T14:26:37Z" finished-at="2020-08-03T14:30:26Z">
+    <test name="Functional" duration-ms="162856" started-at="2020-08-03T14:38:25Z" finished-at="2020-08-03T14:41:08Z">
       <class name="TestCases.TestingNinjaTestCase">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="8" started-at="2020-08-03T14:26:37Z" finished-at="2020-08-03T14:26:37Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="16" started-at="2020-08-03T14:38:25Z" finished-at="2020-08-03T14:38:25Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7046" started-at="2020-08-03T14:26:37Z" finished-at="2020-08-03T14:26:44Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7295" started-at="2020-08-03T14:38:25Z" finished-at="2020-08-03T14:38:32Z">
           <params>
             <param index="0">
               <value>
@@ -27,17 +27,23 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="FAIL" signature="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2" duration-ms="124901" started-at="2020-08-03T14:26:44Z" finished-at="2020-08-03T14:28:49Z">
-          <exception class="java.lang.IndexOutOfBoundsException">
+        <test-method status="PASS" signature="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2" duration-ms="96429" started-at="2020-08-03T14:38:32Z" finished-at="2020-08-03T14:40:09Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2 -->
+        <test-method status="FAIL" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="57462" started-at="2020-08-03T14:40:09Z" finished-at="2020-08-03T14:41:06Z">
+          <exception class="java.lang.AssertionError">
             <message>
-              <![CDATA[Index: 0, Size: 0]]>
+              <![CDATA[Element is already Selected. expected [true] but found [false]]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
-at java.util.ArrayList.rangeCheck(Unknown Source)
-at java.util.ArrayList.get(Unknown Source)
-at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:86)
-at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2(TestingNinjaTestCase.java:58)
+              <![CDATA[java.lang.AssertionError: Element is already Selected. expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:96)
+at org.testng.Assert.failNotEquals(Assert.java:776)
+at org.testng.Assert.assertTrue(Assert.java:44)
+at CommonLIB.CommonFunctionLib.SelectRadioButton(CommonFunctionLib.java:265)
+at PageWiseLIB.TestingNinjaCheckoutLIB.SelectGuestCheckout(TestingNinjaCheckoutLIB.java:29)
+at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1(TestingNinjaTestCase.java:34)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -65,19 +71,15 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.IndexOutOfBoundsException -->
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2 -->
-        <test-method status="PASS" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="95054" started-at="2020-08-03T14:28:50Z" finished-at="2020-08-03T14:30:25Z">
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestingNinja_Product_guest_book_Test1 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="762" started-at="2020-08-03T14:30:25Z" finished-at="2020-08-03T14:30:26Z">
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="795" started-at="2020-08-03T14:41:07Z" finished-at="2020-08-03T14:41:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="64" started-at="2020-08-03T14:30:26Z" finished-at="2020-08-03T14:30:27Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="77" started-at="2020-08-03T14:41:08Z" finished-at="2020-08-03T14:41:08Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->
