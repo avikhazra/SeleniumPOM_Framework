@@ -21,10 +21,10 @@ public class TestingNinjaCheckOut {
 	public static By stateDropDown =By.xpath("//label[text()='Region / State']/following-sibling::select");
 	public static By ShippingAddressCheckbox = By.xpath("//input[@name='shipping_address']");
 	public static By BillingAddressGuestContinue= By.xpath("(//input[@value='Continue'])[2]");
-	public static By DeliveryMethod= By.xpath("//label[text()[normalize-space()='Flat Shipping Rate - 3.92€']]/following::textarea");
-	public static By DeliveryContinue=By.xpath("//label[text()[normalize-space()='Flat Shipping Rate - 3.92€']]/following::input");
-	public static By guestPaymentMethod=By.xpath("(//textarea[@name='comment'])[1]");
-	public static By guestPaymentMethodTermsCondition=By.xpath("(//textarea[@name='comment'])[2]");
+	public static By DeliveryMethod= By.xpath("//span[text()='Categories']/following::textarea");
+	public static By DeliveryContinue=By.xpath("(//div[@class='pull-right']//input)[3]");
+	public static By guestPaymentMethod=By.xpath("(//span[text()='Categories']/following::textarea)[2]");
+	public static By guestPaymentMethodTermsCondition=By.xpath("(//input[@type='checkbox'])[2]");
 	public static By guestPaymentMethodContinue=By.xpath("//input[@type='checkbox']/following-sibling::input[1]");
 	public static By ConfirmOrdername=By.xpath("//table[contains(@class,'table table-bordered')]/following::table");
 	public static By ConfirmOrder=By.xpath("(//label[text()[normalize-space()='Cash On Delivery']]/following::input)[3]");
