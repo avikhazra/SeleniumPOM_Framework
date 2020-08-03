@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="154573" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:38:51Z">
+  <suite name="Suite" duration-ms="154427" started-at="2020-08-03T08:57:27Z" finished-at="2020-08-03T09:00:01Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="154573" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:38:51Z">
+    <test name="Functional" duration-ms="154427" started-at="2020-08-03T08:57:27Z" finished-at="2020-08-03T09:00:01Z">
       <class name="TestCases.TestingNinjaTestCase">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="16" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:36:16Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="15" started-at="2020-08-03T08:57:27Z" finished-at="2020-08-03T08:57:27Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7151" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:36:24Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="6886" started-at="2020-08-03T08:57:27Z" finished-at="2020-08-03T08:57:34Z">
           <params>
             <param index="0">
               <value>
@@ -27,7 +27,7 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="FAIL" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="146270" started-at="2020-08-03T08:36:24Z" finished-at="2020-08-03T08:38:50Z">
+        <test-method status="FAIL" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="146389" started-at="2020-08-03T08:57:34Z" finished-at="2020-08-03T09:00:00Z">
           <exception class="java.lang.IndexOutOfBoundsException">
             <message>
               <![CDATA[Index: 0, Size: 0]]>
@@ -37,7 +37,7 @@
 at java.util.ArrayList.rangeCheck(Unknown Source)
 at java.util.ArrayList.get(Unknown Source)
 at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:86)
-at PageWiseLIB.TestingNinjaCheckoutLIB.DeliveryMethod(TestingNinjaCheckoutLIB.java:53)
+at PageWiseLIB.TestingNinjaCheckoutLIB.DeliveryMethod(TestingNinjaCheckoutLIB.java:55)
 at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1(TestingNinjaTestCase.java:37)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
@@ -70,11 +70,11 @@ at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestingNinja_Product_guest_book_Test1 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="822" started-at="2020-08-03T08:38:50Z" finished-at="2020-08-03T08:38:51Z">
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="742" started-at="2020-08-03T09:00:01Z" finished-at="2020-08-03T09:00:01Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="98" started-at="2020-08-03T08:38:52Z" finished-at="2020-08-03T08:38:52Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="86" started-at="2020-08-03T09:00:02Z" finished-at="2020-08-03T09:00:02Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->

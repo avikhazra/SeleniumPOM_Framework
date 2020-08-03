@@ -23,8 +23,8 @@ public class TestingNinjaCheckOut {
 	public static By BillingAddressGuestContinue= By.xpath("(//input[@value='Continue'])[2]");
 	public static By DeliveryMethod= By.xpath("//label[text()[normalize-space()='Flat Shipping Rate - 3.92€']]/following::textarea");
 	public static By DeliveryContinue=By.xpath("//label[text()[normalize-space()='Flat Shipping Rate - 3.92€']]/following::input");
-	public static By guestPaymentMethod=By.xpath("//label[text()[normalize-space()='Cash On Delivery']]/following::textarea");
-	public static By guestPaymentMethodTermsCondition=By.xpath("//label[text()[normalize-space()='Cash On Delivery']]/following::input");
+	public static By guestPaymentMethod=By.xpath("(//textarea[@name='comment'])[1]");
+	public static By guestPaymentMethodTermsCondition=By.xpath("(//textarea[@name='comment'])[2]");
 	public static By guestPaymentMethodContinue=By.xpath("//input[@type='checkbox']/following-sibling::input[1]");
 	public static By ConfirmOrdername=By.xpath("//table[contains(@class,'table table-bordered')]/following::table");
 	public static By ConfirmOrder=By.xpath("(//label[text()[normalize-space()='Cash On Delivery']]/following::input)[3]");
