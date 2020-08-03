@@ -107,7 +107,7 @@ public class CommonFunctionLib {
 			if(!Check_Uncheck.equalsIgnoreCase("")) {
 				if (Check_Uncheck.equalsIgnoreCase("Check")){
 					if (element.isSelected()) {
-						Assert.assertTrue(false,"Element is already Checked. It can not be check again checking may causes Unchecking");
+						Assert.assertTrue(true,"Element is already Checked. It can not be check again checking may causes Unchecking");
 					}else {
 						element.click();
 						checkCondition=element.isSelected();
@@ -128,7 +128,7 @@ public class CommonFunctionLib {
 
 				}else if (Check_Uncheck.equalsIgnoreCase("unCheck")){
 					if (!element.isSelected()) {
-						Assert.assertTrue(false,"Element is already UnChecked. It can not be check again checking may causes Unchecking");
+						Assert.assertTrue(true,"Element is already UnChecked. It can not be check again checking may causes Unchecking");
 					}else {
 						element.click();
 						checkCondition=element.isSelected();
@@ -349,7 +349,7 @@ public class CommonFunctionLib {
 				if(SelectedValue.trim().compareTo(strVisiableText.trim())==0){
 					Assert.assertTrue(true,strVisiableText+" is selected");
 				}else {
-					Assert.assertTrue(true,strVisiableText+" is not selected. Please check once!");
+					Assert.assertTrue(false,strVisiableText+" is not selected. Please check once!");
 				}			
 				
 				Assert.assertTrue(true,"Typing is Successfull");

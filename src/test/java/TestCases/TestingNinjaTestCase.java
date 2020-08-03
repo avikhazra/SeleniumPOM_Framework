@@ -26,8 +26,8 @@ public class TestingNinjaTestCase extends TestNgFrameWorkBasic  {
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaSeachPage.PageNameShopping), "Search");
 		ObjectCreationClass.TNS.SearchProductWithDescriptionCatagory();
 		ObjectCreationClass.TNS.SelectNinjaProduct("MacBook Air");
-		ObjectCreationClass.TNS.productItemValidation("1");
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaSeachPage.SuccessfullValue), "Success: You have added MacBook Air to your shopping cart!");
+		ObjectCreationClass.TNS.productItemValidation("1");
 		ObjectCreationClass.TNC.GotoCheckOutPage("MacBook Air");
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.PageNameCheckout), "Checkout");
 		ObjectCreationClass.TNC.BeforeSelectionValidateRadioButtons();

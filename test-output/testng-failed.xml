@@ -13,8 +13,8 @@
           <include name="SetDataProvider"/>
           <include name="TearDown"/>
           <include name="Cleaning"/>
-          <include name="TestingNinjaTest1"/>
           <include name="BeforeTest"/>
+          <include name="TestingNinja_Product_guest_book_Test1"/>
         </methods>
       </class> <!-- TestCases.TestingNinjaTestCase -->
     </classes>

@@ -57,9 +57,9 @@ function toggleAllBoxes() {
 <tr>
 <td>Tests passed/Failed/Skipped:</td><td>0/1/0</td>
 </tr><tr>
-<td>Started on:</td><td>Mon Aug 03 13:26:41 IST 2020</td>
+<td>Started on:</td><td>Mon Aug 03 14:06:16 IST 2020</td>
 </tr>
-<tr><td>Total time:</td><td>96 seconds (96365 ms)</td>
+<tr><td>Total time:</td><td>154 seconds (154573 ms)</td>
 </tr><tr>
 <td>Included groups:</td><td></td>
 </tr><tr>
@@ -75,19 +75,20 @@ function toggleAllBoxes() {
 <td><b>Instance</b></td>
 </tr>
 <tr>
-<td title='TestCases.TestingNinjaTestCase.TestingNinjaTest1()'><b>TestingNinjaTest1</b><br>Test class: TestCases.TestingNinjaTestCase</td>
-<td><div><pre>java.lang.AssertionError: Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]
-	at CommonLIB.CommonFunctionLib.CheckCheckBox(CommonFunctionLib.java:110)
-	at PageWiseLIB.TestingNinjaCheckoutLIB.BillingAddress(TestingNinjaCheckoutLIB.java:48)
-	at TestCases.TestingNinjaTestCase.TestingNinjaTest1(TestingNinjaTestCase.java:36)
-... Removed 28 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace372469954", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
-<div class='stack-trace' id='stack-trace372469954'><pre>java.lang.AssertionError: Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]
-	at org.testng.Assert.fail(Assert.java:96)
-	at org.testng.Assert.failNotEquals(Assert.java:776)
-	at org.testng.Assert.assertTrue(Assert.java:44)
-	at CommonLIB.CommonFunctionLib.CheckCheckBox(CommonFunctionLib.java:110)
-	at PageWiseLIB.TestingNinjaCheckoutLIB.BillingAddress(TestingNinjaCheckoutLIB.java:48)
-	at TestCases.TestingNinjaTestCase.TestingNinjaTest1(TestingNinjaTestCase.java:36)
+<td title='TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1()'><b>TestingNinja_Product_guest_book_Test1</b><br>Test class: TestCases.TestingNinjaTestCase</td>
+<td><div><pre>java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:86)
+	at PageWiseLIB.TestingNinjaCheckoutLIB.DeliveryMethod(TestingNinjaCheckoutLIB.java:53)
+	at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1(TestingNinjaTestCase.java:37)
+... Removed 25 stack frames</pre></div><a href='#' onClick='toggleBox("stack-trace394785440", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace394785440'><pre>java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(Unknown Source)
+	at java.util.ArrayList.get(Unknown Source)
+	at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:86)
+	at PageWiseLIB.TestingNinjaCheckoutLIB.DeliveryMethod(TestingNinjaCheckoutLIB.java:53)
+	at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1(TestingNinjaTestCase.java:37)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -114,7 +115,7 @@ function toggleAllBoxes() {
 	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 </pre></div></td>
-<td>87</td>
+<td>146</td>
 <td>TestCases.TestingNinjaTestCase@4f7d0008</td></tr>
 </table><p>
 </body>

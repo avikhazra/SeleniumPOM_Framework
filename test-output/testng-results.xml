@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="96365" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:58:17Z">
+  <suite name="Suite" duration-ms="154573" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:38:51Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="96365" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:58:17Z">
+    <test name="Functional" duration-ms="154573" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:38:51Z">
       <class name="TestCases.TestingNinjaTestCase">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="24" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:56:41Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="16" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:36:16Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7391" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:56:48Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7151" started-at="2020-08-03T08:36:16Z" finished-at="2020-08-03T08:36:24Z">
           <params>
             <param index="0">
               <value>
@@ -27,19 +27,18 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="FAIL" signature="TestingNinjaTest1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinjaTest1" duration-ms="87567" started-at="2020-08-03T07:56:48Z" finished-at="2020-08-03T07:58:16Z">
-          <exception class="java.lang.AssertionError">
+        <test-method status="FAIL" signature="TestingNinja_Product_guest_book_Test1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinja_Product_guest_book_Test1" duration-ms="146270" started-at="2020-08-03T08:36:24Z" finished-at="2020-08-03T08:38:50Z">
+          <exception class="java.lang.IndexOutOfBoundsException">
             <message>
-              <![CDATA[Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]]]>
+              <![CDATA[Index: 0, Size: 0]]>
             </message>
             <full-stacktrace>
-              <![CDATA[java.lang.AssertionError: Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]
-at org.testng.Assert.fail(Assert.java:96)
-at org.testng.Assert.failNotEquals(Assert.java:776)
-at org.testng.Assert.assertTrue(Assert.java:44)
-at CommonLIB.CommonFunctionLib.CheckCheckBox(CommonFunctionLib.java:110)
-at PageWiseLIB.TestingNinjaCheckoutLIB.BillingAddress(TestingNinjaCheckoutLIB.java:48)
-at TestCases.TestingNinjaTestCase.TestingNinjaTest1(TestingNinjaTestCase.java:36)
+              <![CDATA[java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+at java.util.ArrayList.rangeCheck(Unknown Source)
+at java.util.ArrayList.get(Unknown Source)
+at CommonLIB.GetBrowserElement.getWebElementByXpath(GetBrowserElement.java:86)
+at PageWiseLIB.TestingNinjaCheckoutLIB.DeliveryMethod(TestingNinjaCheckoutLIB.java:53)
+at TestCases.TestingNinjaTestCase.TestingNinja_Product_guest_book_Test1(TestingNinjaTestCase.java:37)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
 at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
@@ -67,15 +66,15 @@ at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
 at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
 ]]>
             </full-stacktrace>
-          </exception> <!-- java.lang.AssertionError -->
+          </exception> <!-- java.lang.IndexOutOfBoundsException -->
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- TestingNinjaTest1 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="873" started-at="2020-08-03T07:58:16Z" finished-at="2020-08-03T07:58:17Z">
+        </test-method> <!-- TestingNinja_Product_guest_book_Test1 -->
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="822" started-at="2020-08-03T08:38:50Z" finished-at="2020-08-03T08:38:51Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="51" started-at="2020-08-03T07:58:18Z" finished-at="2020-08-03T07:58:18Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="98" started-at="2020-08-03T08:38:52Z" finished-at="2020-08-03T08:38:52Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->
