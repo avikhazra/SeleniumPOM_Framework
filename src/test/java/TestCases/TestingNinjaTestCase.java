@@ -18,7 +18,7 @@ import Repositories.TestingNinjaSeachPage;
 public class TestingNinjaTestCase extends TestNgFrameWorkBasic  {
 
 	@Test
-	public void TestingNinjaTest1() throws Exception{
+	public void TestingNinja_Product_guest_book_Test1() throws Exception{
 		ObjectCreationClass.ComLiB.FocusOnUrl(CommonRepository.testingInija);
 		ObjectCreationClass.TN.currencySelect("£ Pound Sterling");
 		GetBrowserElement.PageReadyStateCheck(3000);
@@ -33,7 +33,13 @@ public class TestingNinjaTestCase extends TestNgFrameWorkBasic  {
 		ObjectCreationClass.TNC.BeforeSelectionValidateRadioButtons();
 		ObjectCreationClass.TNC.SelectGuestCheckout();
 		ObjectCreationClass.TNC.AfterSelectionSelectGuestCheckout();
-		ObjectCreationClass.TNC.BillingAddress("John", "Doe", "john.doe@gmail.com", "112345", "112 Now Where", "XXXX", "Congo", "Pool");
+		ObjectCreationClass.TNC.BillingAddress("John", "Doe", "john.doe@gmail.com", "112345", "112 Now Where","1234567", "XXXX", "Congo", "Pool");
+		ObjectCreationClass.TNC.DeliveryMethod("Cash");
+		ObjectCreationClass.TNC.GuestPaymentMethod("Cash on Delivery");
+		ObjectCreationClass.TNC.confirmOrder("MacBook Air");
+
+		//GuestPaymentMethod
+		//DeliveryMethod
 		//BillingAddress
 		
 	}

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+<testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="80246" started-at="2020-08-02T22:09:10Z" finished-at="2020-08-02T22:10:30Z">
+  <suite name="Suite" duration-ms="96365" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:58:17Z">
     <groups>
     </groups>
-    <test name="Functional" duration-ms="80246" started-at="2020-08-02T22:09:10Z" finished-at="2020-08-02T22:10:30Z">
+    <test name="Functional" duration-ms="96365" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:58:17Z">
       <class name="TestCases.TestingNinjaTestCase">
-        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="15" started-at="2020-08-02T22:09:10Z" finished-at="2020-08-02T22:09:10Z">
+        <test-method status="PASS" signature="SetDataProvider()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="SetDataProvider" is-config="true" duration-ms="24" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:56:41Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- SetDataProvider -->
-        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="6665" started-at="2020-08-02T22:09:10Z" finished-at="2020-08-02T22:09:16Z">
+        <test-method status="PASS" signature="BeforeTest(java.lang.String, java.lang.String)[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="BeforeTest" is-config="true" duration-ms="7391" started-at="2020-08-03T07:56:41Z" finished-at="2020-08-03T07:56:48Z">
           <params>
             <param index="0">
               <value>
@@ -27,15 +27,55 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- BeforeTest -->
-        <test-method status="PASS" signature="TestingNinjaTest1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinjaTest1" duration-ms="72347" started-at="2020-08-02T22:09:16Z" finished-at="2020-08-02T22:10:29Z">
+        <test-method status="FAIL" signature="TestingNinjaTest1()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TestingNinjaTest1" duration-ms="87567" started-at="2020-08-03T07:56:48Z" finished-at="2020-08-03T07:58:16Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: Element is already Checked. It can not be check again checking may causes Unchecking expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:96)
+at org.testng.Assert.failNotEquals(Assert.java:776)
+at org.testng.Assert.assertTrue(Assert.java:44)
+at CommonLIB.CommonFunctionLib.CheckCheckBox(CommonFunctionLib.java:110)
+at PageWiseLIB.TestingNinjaCheckoutLIB.BillingAddress(TestingNinjaCheckoutLIB.java:48)
+at TestCases.TestingNinjaTestCase.TestingNinjaTest1(TestingNinjaTestCase.java:36)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TestingNinjaTest1 -->
-        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="854" started-at="2020-08-02T22:10:29Z" finished-at="2020-08-02T22:10:30Z">
+        <test-method status="PASS" signature="TearDown()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="TearDown" is-config="true" duration-ms="873" started-at="2020-08-03T07:58:16Z" finished-at="2020-08-03T07:58:17Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TearDown -->
-        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="71" started-at="2020-08-02T22:10:30Z" finished-at="2020-08-02T22:10:31Z">
+        <test-method status="PASS" signature="Cleaning()[pri:0, instance:TestCases.TestingNinjaTestCase@4f7d0008]" name="Cleaning" is-config="true" duration-ms="51" started-at="2020-08-03T07:58:18Z" finished-at="2020-08-03T07:58:18Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- Cleaning -->

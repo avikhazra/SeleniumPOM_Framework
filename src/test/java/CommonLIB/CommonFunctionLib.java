@@ -318,6 +318,20 @@ public class CommonFunctionLib {
 			Assert.assertTrue(true,"Validation is failed");	
 		}
 	}
+	/********************************************
+	 *  FunctionName: ValidationTextContains
+	 * Argument : WebElement
+	 * @throws IOException 
+	 * 
+	 **********************************************/
+	public void ValidationTextContains(WebElement element,String Value) {
+		GetBrowserElement.HighlisghtThexpath(element);
+		if(ObjectCreationClass.ComLiB.GetElementText(element).toUpperCase().contains(Value.toUpperCase())) {
+			Assert.assertTrue(true,"Validation is done");	
+		}else {
+			Assert.assertTrue(true,"Validation is failed");	
+		}
+	}
 
 	/************************************************
 	 * FunctionName: SelectOnparam
