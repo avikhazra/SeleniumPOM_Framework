@@ -10,7 +10,5 @@ public class TestingNinjaSeachPage {
 	public static By ProductSelect=By.xpath("//img[@title='xxxx']/ancestor::a[1]/ancestor::div[1]/ancestor::div[1]/descendant::div[2]/descendant::div[2]/descendant::button[1]");
 	public static By ProductValue=By.xpath("//div[@id='cart']/button[1]/span[1]");
 	public static By ProductName=By.xpath("//table[@class='table table-striped']/tbody[1]/tr[1]/td[2]/a[1]");
-	public static By CheckOutButton=By.xpath("//div[@id='cart']/button[1]");
-	public static By CheckOutLink=By.xpath("//strong[text()=' Checkout']/ancestor::a");
 	public static By SuccessfullValue=By.xpath("//div[@id='product-search']/div[1]");
 }

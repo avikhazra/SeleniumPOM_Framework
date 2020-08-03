@@ -4,10 +4,13 @@ import PageWiseLIB.CheckOutPageLIB;
 import PageWiseLIB.FacebookPageLIB;
 import PageWiseLIB.HerokuupHomePageLIB;
 import PageWiseLIB.HomePageLIB;
-import PageWiseLIB.HomePageLIB;
+
 import PageWiseLIB.LoginPageLIB;
 import PageWiseLIB.SearchDeatailsPageLIB;
-import PageWiseLIB.TestingNinjaLIB;
+import PageWiseLIB.TestingNinjaCheckoutLIB;
+import PageWiseLIB.TestingNinjaHomeLIB;
+import PageWiseLIB.TestingNinjaSearchLIB;
+
 
 public class ObjectCreationClass {
 	 public static CommonFunctionLib ComLiB = new CommonFunctionLib(); // common
@@ -25,5 +28,7 @@ public class ObjectCreationClass {
 	 public static FacebookPageLIB fc= new FacebookPageLIB();
 	 
 	 //Testing Nija
-	 public static TestingNinjaLIB TN= new TestingNinjaLIB();
+	 public static TestingNinjaHomeLIB TN= new TestingNinjaHomeLIB();
+	 public static TestingNinjaSearchLIB TNS= new TestingNinjaSearchLIB();
+	 public static TestingNinjaCheckoutLIB TNC= new TestingNinjaCheckoutLIB();
 }

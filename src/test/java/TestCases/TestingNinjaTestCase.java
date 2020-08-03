@@ -1,7 +1,8 @@
 package TestCases;
 
-//import org.testng.Assert;
-import org.testng.annotations.*;
+
+
+import org.testng.annotations.Test;
 
 //import com.codoid.products.exception.FilloException;
 
@@ -23,15 +24,15 @@ public class TestingNinjaTestCase extends TestNgFrameWorkBasic  {
 		GetBrowserElement.PageReadyStateCheck(3000);
 		ObjectCreationClass.TN.SearchProduct("MacBook Air");
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaSeachPage.PageNameShopping), "Search");
-		ObjectCreationClass.TN.SearchProductWithDescriptionCatagory();
-		ObjectCreationClass.TN.SelectNinjaProduct("MacBook Air");
-		ObjectCreationClass.TN.productItemValidation("1");
+		ObjectCreationClass.TNS.SearchProductWithDescriptionCatagory();
+		ObjectCreationClass.TNS.SelectNinjaProduct("MacBook Air");
+		ObjectCreationClass.TNS.productItemValidation("1");
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaSeachPage.SuccessfullValue), "Success: You have added MacBook Air to your shopping cart!");
-		ObjectCreationClass.TN.GotoCheckOutPage("MacBook Air");
+		ObjectCreationClass.TNC.GotoCheckOutPage("MacBook Air");
 		ObjectCreationClass.ComLiB.ValidationText(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.PageNameCheckout), "Checkout");
-		ObjectCreationClass.TN.BeforeSelectionValidateRadioButtons();
-		ObjectCreationClass.TN.SelectGuestCheckout();
-		ObjectCreationClass.TN.AfterSelectionSelectGuestCheckout();
+		ObjectCreationClass.TNC.BeforeSelectionValidateRadioButtons();
+		ObjectCreationClass.TNC.SelectGuestCheckout();
+		ObjectCreationClass.TNC.AfterSelectionSelectGuestCheckout();
 		
 	}
 
