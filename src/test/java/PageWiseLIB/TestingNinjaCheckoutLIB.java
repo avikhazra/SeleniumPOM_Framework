@@ -31,7 +31,7 @@ public class TestingNinjaCheckoutLIB {
 	public void AfterSelectionSelectGuestCheckout() throws Exception {
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.RegisterAccount),false);
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.GuestCheckout),true);
-		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.ContinueButton));
+		
 	}
 	
 	public void BillingAddress(String Fname,String Lname,String email, String Phone,String Address,String posttalcode,String City,String Country,String State) throws Exception {

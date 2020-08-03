@@ -6,9 +6,9 @@
       <class name="TestCases.TestingNinjaTestCase">
         <methods>
           <include name="SetDataProvider"/>
+          <include name="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2"/>
           <include name="TearDown"/>
           <include name="Cleaning"/>
-          <include name="TestingNinjaTest1"/>
           <include name="BeforeTest"/>
         </methods>
       </class> <!-- TestCases.TestingNinjaTestCase -->

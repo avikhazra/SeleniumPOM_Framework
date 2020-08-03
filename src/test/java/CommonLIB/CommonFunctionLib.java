@@ -2,12 +2,17 @@ package CommonLIB;
 
 
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import Repositories.TestingNinjaSeachPage;
 
@@ -363,6 +368,54 @@ public class CommonFunctionLib {
 			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
 		}	
 	}
+	/******************************************
+	 *  FunctionName: VerifyDropdownContains
+	 * Argument :
+	 * @throws IOException 
+	 *******************************************/
+	public void VerifyDropdownContains(WebElement element,String strtestdata) {
+		SoftAssert softAssert = new SoftAssert();
+		try {		
+			strtestdata.replace("|", "\\|");
+			String [] publicArray= strtestdata.split("\\|");
+			int Arraysize=	publicArray.length;
+			if(element!=null) {
+				Select select = new Select(element);
+				List<WebElement>elements = select.getOptions();
+				HashMap<String,String> GenHashmap= new HashMap<String,String>();
+				for(WebElement ele: elements ) {
+					String eleText = ele.getText().toUpperCase();
+					if (eleText!=null) {
+						GenHashmap.put(eleText, "");
+					}
+				}
+				for (int i=0;i<Arraysize;i++) {
+					if(GenHashmap.containsKey(publicArray[i].toUpperCase())) {
+
+						Assert.assertTrue(true ,publicArray[i] +" ' is present on drop down " ); 
+						GenHashmap.remove(publicArray[i].toUpperCase());
+					}else {
+
+						System.out.println(publicArray[i] +"' is  not present on drop down ");
+					}
+				}
+
+				if(GenHashmap.size()>0) {
+					Iterator Iterator= GenHashmap.entrySet().iterator();
+					while(Iterator.hasNext()) {
+						Map.Entry pair=(Map.Entry) Iterator.next();
+						softAssert.assertTrue(false,pair.getKey().toString() +"is  not present on drop down");
+					}
+				}				}
+
+
+		}catch(Exception ex) {
+
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}
+
+	}	
+
 
 
 }

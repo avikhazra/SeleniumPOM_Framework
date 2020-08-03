@@ -11,10 +11,10 @@
       <class name="TestCases.TestingNinjaTestCase">
         <methods>
           <include name="SetDataProvider"/>
+          <include name="TestingNinja_Product_guest_book_DropDownValidation_Canada_Test2"/>
           <include name="TearDown"/>
           <include name="Cleaning"/>
           <include name="BeforeTest"/>
-          <include name="TestingNinja_Product_guest_book_Test1"/>
         </methods>
       </class> <!-- TestCases.TestingNinjaTestCase -->
     </classes>
