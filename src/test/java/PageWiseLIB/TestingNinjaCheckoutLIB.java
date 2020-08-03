@@ -1,6 +1,8 @@
 package PageWiseLIB;
 
 
+import org.openqa.selenium.By;
+
 import CommonLIB.GetBrowserElement;
 import CommonLIB.ObjectCreationClass;
 import Repositories.TestingNinjaCheckOut;
@@ -29,5 +31,19 @@ public class TestingNinjaCheckoutLIB {
 	public void AfterSelectionSelectGuestCheckout() throws Exception {
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.RegisterAccount),false);
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.GuestCheckout),true);
+	}
+	
+	public void BillingAddress(String Fname,String Lname,String email, String Phone,String Address,String City,String Country,String State) throws Exception {
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.FName), Fname);
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.LName), Lname);
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.email), email);
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.telephone), email);
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.Address1), Address);
+		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.city), City);
+		ObjectCreationClass.ComLiB.selectOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.CountryDropdown), Country);
+		ObjectCreationClass.ComLiB.selectOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.stateDropDown), State);
+		ObjectCreationClass.ComLiB.CheckCheckBox(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.ShippingAddressCheckbox), "check");
+		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.BillingAddressGuestContinue));
+		
 	}
 }

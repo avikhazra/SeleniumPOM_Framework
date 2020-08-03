@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import Repositories.TestingNinjaSeachPage;
@@ -316,6 +317,37 @@ public class CommonFunctionLib {
 		}else {
 			Assert.assertTrue(true,"Validation is failed");	
 		}
+	}
+
+	/************************************************
+	 * FunctionName: SelectOnparam
+	 * Argument : WebElements
+	 * 
+	 *************************************************/
+	public void selectOnparam(WebElement element,String strVisiableText)  {
+		try {
+
+			if (!strVisiableText.equals("")) {
+				Select select = new Select(element);
+				select.selectByVisibleText(strVisiableText.trim());
+				WebElement SelectEelement= select.getFirstSelectedOption();
+				String SelectedValue =SelectEelement.getText().toString();
+				if(SelectedValue.trim().compareTo(strVisiableText.trim())==0){
+					Assert.assertTrue(true,strVisiableText+" is selected");
+				}else {
+					Assert.assertTrue(true,strVisiableText+" is not selected. Please check once!");
+				}			
+				
+				Assert.assertTrue(true,"Typing is Successfull");
+			}else {
+
+				Assert.assertTrue(false,"testdata is missing");
+			}
+
+		}catch(Exception ex) {
+			
+			Assert.assertTrue(false,"Exception is "+ ex.toString() + " for causing :" + ex.getMessage());
+		}	
 	}
 
 

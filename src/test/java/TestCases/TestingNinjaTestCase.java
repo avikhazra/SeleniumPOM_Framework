@@ -33,6 +33,8 @@ public class TestingNinjaTestCase extends TestNgFrameWorkBasic  {
 		ObjectCreationClass.TNC.BeforeSelectionValidateRadioButtons();
 		ObjectCreationClass.TNC.SelectGuestCheckout();
 		ObjectCreationClass.TNC.AfterSelectionSelectGuestCheckout();
+		ObjectCreationClass.TNC.BillingAddress("John", "Doe", "john.doe@gmail.com", "112345", "112 Now Where", "XXXX", "Congo", "Pool");
+		//BillingAddress
 		
 	}
 
