@@ -21,7 +21,7 @@ public class TestingNinjaCheckoutLIB {
 	
 	
 	public void BeforeSelectionValidateRadioButtons() throws Exception {
-		GetBrowserElement.PageReadyStateCheck(1000);
+		GetBrowserElement.PageReadyStateCheck(100);
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.RegisterAccount),true);
 		ObjectCreationClass.ComLiB.RadioButtonStatusChecking(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.GuestCheckout),false);
 	}
@@ -51,19 +51,17 @@ public class TestingNinjaCheckoutLIB {
 	}
 	public void DeliveryMethod(String Methods) throws Exception {
 		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.DeliveryMethod), Methods);
-		GetBrowserElement.PageReadyStateCheck(1000);
+		
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.DeliveryContinue));
 		
 	}
 	public void GuestPaymentMethod(String Methods) throws Exception {
-		GetBrowserElement.PageReadyStateCheck(1000);
 		ObjectCreationClass.ComLiB.SetOnparam(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.guestPaymentMethod), Methods);
 		ObjectCreationClass.ComLiB.CheckCheckBox(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.guestPaymentMethodTermsCondition), "check");
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.guestPaymentMethodContinue));
 		
 	}
 	public void confirmOrder(String productname) throws Exception {
-		GetBrowserElement.PageReadyStateCheck(1000);
 		ObjectCreationClass.ComLiB.ValidationTextContains(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.ConfirmOrdername), productname);
 		ObjectCreationClass.ComLiB.ClickObject(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.ConfirmOrder));
 		ObjectCreationClass.ComLiB.ValidationTextContains(GetBrowserElement.getWebElementByXpath(TestingNinjaCheckOut.Confirmation), "Your order has been placed!");
