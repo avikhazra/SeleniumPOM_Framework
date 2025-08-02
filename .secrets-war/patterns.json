@@ -1,0 +1,79 @@
+{
+  "patterns": [
+    {
+      "name": "AWS Access Key",
+      "pattern": "AKIA[0-9A-Z]{16}",
+      "severity": "high"
+    },
+    {
+      "name": "AWS Secret Key",
+      "pattern": "[A-Za-z0-9/+=]{40}",
+      "severity": "high"
+    },
+    {
+      "name": "Google API Key",
+      "pattern": "AIza[0-9A-Za-z\\-_]{35}",
+      "severity": "high"
+    },
+    {
+      "name": "GitHub Token",
+      "pattern": "ghp_[0-9a-zA-Z]{36}",
+      "severity": "high"
+    },
+    {
+      "name": "Generic API Key",
+      "pattern": "[Aa][Pp][Ii]_?[Kk][Ee][Yy].*['\"][0-9a-zA-Z]{32,45}['\"]",
+      "severity": "medium"
+    },
+    {
+      "name": "Generic Secret",
+      "pattern": "[Ss][Ee][Cc][Rr][Ee][Tt].*['\"][0-9a-zA-Z]{8,}['\"]",
+      "severity": "medium"
+    },
+    {
+      "name": "Password",
+      "pattern": "[Pp][Aa][Ss][Ss][Ww][Oo][Rr][Dd].*['\"][^'\"]{8,}['\"]",
+      "severity": "high"
+    },
+    {
+      "name": "Database URL",
+      "pattern": "(mysql|postgresql|mongodb|redis)://[^\\s'\"]+",
+      "severity": "high"
+    },
+    {
+      "name": "JWT Token",
+      "pattern": "eyJ[A-Za-z0-9_-]*\\.[A-Za-z0-9._-]*|eyJ[A-Za-z0-9_\\/+-]*\\.[A-Za-z0-9._\\/+-]*",
+      "severity": "medium"
+    },
+    {
+      "name": "Private Key",
+      "pattern": "-----BEGIN [A-Z ]+PRIVATE KEY-----",
+      "severity": "critical"
+    },
+    {
+      "name": "SSH Key",
+      "pattern": "ssh-rsa AAAAB3NzaC1yc2|ssh-dss AAAAB3NzaC1kc3|ssh-ed25519 AAAAC3NzaC1lZDI1NTE5",
+      "severity": "high"
+    },
+    {
+      "name": "Slack Token",
+      "pattern": "xox[baprs]-[0-9]{12}-[0-9]{12}-[0-9a-zA-Z]{24}",
+      "severity": "high"
+    },
+    {
+      "name": "Stripe Key",
+      "pattern": "sk_live_[0-9a-zA-Z]{24}|pk_live_[0-9a-zA-Z]{24}",
+      "severity": "high"
+    },
+    {
+      "name": "Generic Token",
+      "pattern": "[Tt][Oo][Kk][Ee][Nn].*['\"][0-9a-zA-Z]{20,}['\"]",
+      "severity": "medium"
+    },
+    {
+      "name": "Generic Key",
+      "pattern": "[Kk][Ee][Yy].*['\"][0-9a-zA-Z]{16,}['\"]",
+      "severity": "medium"
+    }
+  ]
+}

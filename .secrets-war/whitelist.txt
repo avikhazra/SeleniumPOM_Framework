@@ -1,0 +1,10 @@
+# Whitelist patterns - one per line
+# Lines starting with # are comments
+# Use regex patterns to whitelist specific matches
+
+# Example whitelisted patterns:
+# test_password_123
+# dummy_api_key
+# sample_secret
+# YOUR_API_KEY_HERE
+# placeholder_token
