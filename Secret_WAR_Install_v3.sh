@@ -36,13 +36,13 @@ show_banner() {
        ██  ██      ██      ██   ██ ██         ██        ██ ███ ██ ██   ██ ██   ██ 
   ██████   ███████  ██████ ██   ██ ███████    ██         ███ ███  ██   ██ ██   ██ 
                                                                                     
-                    Advanced Git Pre-commit Security Scanner
-                         "Dread it, Run from it. Destiny Still arrives"
-                                     Installer v${VERSION}
+                      Advanced Git Pre-commit Security Scanner
+                   "Dread it, Run from it. Destiny Still arrives"
+                            Installer v1.0.0
 EOF
     echo -e "${NC}"
     echo -e "${CYAN}🛡️  Protecting your repositories from security vulnerabilities${NC}"
-    echo -e "${CYAN}⚡ 8-thread parallel processing | 50+ security patterns | HTML reports${NC}"
+    echo -e "${CYAN}⚡ 8-thread parallel processing | 100+ security patterns | HTML reports${NC}"
     echo ""
 }
 
@@ -351,7 +351,564 @@ create_patterns_config() {
 # Secret WAR Pattern Configuration
 # Add one regex pattern per line
 # Lines starting with # are comments
+# Single-line comments with secrets
+//\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+#\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+/\*\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?\s*\*/
 
+# TODO/FIXME comments with credentials
+(?i)(?:todo|fixme|hack|temp|temporary)\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# Commented out credentials
+//\s*(?i)[a-z0-9_-]*(?:api[_-]?key|token|secret|password)[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+#\s*(?i)[a-z0-9_-]*(?:api[_-]?key|token|secret|password)[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# Multi-line comment blocks with secrets
+/\*[\s\S]*?(?i)(password|key|token|secret|auth)[\s\S]*?[a-z0-9_-]{12,}[\s\S]*?\*/
+
+# XML/HTML comments with secrets
+<!--\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?\s*-->
+
+# Python docstring secrets
+"""\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?\s*"""
+'''\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?\s*'''
+
+# Shell script comments
+#!\s*/bin/(?:bash|sh)[\s\S]*?#\s*(?i)(password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+
+# Development notes with credentials
+(?i)note\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+(?i)remember\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+(?i)default\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# Debug comments with sensitive info
+(?i)debug\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+(?i)test\s*[:]*\s*(?:password|pwd|pass|key|token|secret|auth)\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# Active API keys
+(?i)[a-z0-9_-]*api[_-]?key[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+(?i)[a-z0-9_-]*token[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{12,}['""]?
+(?i)[a-z0-9_-]*secret[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{12,}['""]?
+(?i)[a-z0-9_-]*auth[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{12,}['""]?
+(?i)bearer\s+[a-z0-9_-]{12,}
+
+# Commented API keys
+//\s*(?i)[a-z0-9_-]*api[_-]?key[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+#\s*(?i)[a-z0-9_-]*api[_-]?key[a-z0-9_-]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# Environment variable patterns
+(?i)export\s+[A-Z_]*(?:API|TOKEN|SECRET|KEY)[A-Z_]*\s*=\s*['""]?[a-z0-9_-]{8,}['""]?
+(?i)set\s+[A-Z_]*(?:API|TOKEN|SECRET|KEY)[A-Z_]*\s*=\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# JSON/YAML configurations
+"(?i)[a-z0-9_-]*(?:api[_-]?key|token|secret|auth)[a-z0-9_-]*"\s*:\s*"[a-z0-9_-]{8,}"
+(?i)[a-z0-9_-]*(?:api[_-]?key|token|secret|auth)[a-z0-9_-]*\s*:\s*['""]?[a-z0-9_-]{8,}['""]?
+# AWS Access Keys
+AKIA[0-9A-Z]{16}
+ASIA[0-9A-Z]{16}
+AROA[0-9A-Z]{16}
+AIDA[0-9A-Z]{16}
+AIPA[0-9A-Z]{16}
+ANPA[0-9A-Z]{16}
+ANVA[0-9A-Z]{16}
+AGPA[0-9A-Z]{16}
+
+# AWS Secret Keys
+(?i)aws_secret_access_key\s*[:=]\s*['""]?[a-z0-9/+=]{40}['""]?
+(?i)aws_access_key_id\s*[:=]\s*['""]?[a-z0-9]{20}['""]?
+(?i)aws_session_token\s*[:=]\s*['""]?[a-z0-9/+=]{16,}['""]?
+
+# AWS in comments
+//\s*(?i)aws[_-]?(?:secret|access|session)[_-]?(?:key|token)[_-]?(?:id)?\s*[:=]\s*['""]?[a-z0-9/+=]{20,}['""]?
+#\s*(?i)aws[_-]?(?:secret|access|session)[_-]?(?:key|token)[_-]?(?:id)?\s*[:=]\s*['""]?[a-z0-9/+=]{20,}['""]?
+
+# AWS CLI configuration
+\[(?:default|profile\s+[a-z0-9_-]+)\][\s\S]*?aws_access_key_id\s*=\s*[a-z0-9]{20}
+\[(?:default|profile\s+[a-z0-9_-]+)\][\s\S]*?aws_secret_access_key\s*=\s*[a-z0-9/+=]{40}
+
+# AWS Lambda environment variables
+(?i)AWS_LAMBDA_FUNCTION_[A-Z_]*\s*[:=]\s*['""]?[a-z0-9_-]{8,}['""]?
+
+# AWS RDS connection strings
+(?i)rds[.-][a-z0-9-]+\.amazonaws\.com
+(?i)rds[.-][a-z0-9-]+\.amazonaws\.com[:/][0-9]+/[a-z0-9_-]+
+# AWS S3 bucket names
+(?i)s3://[a-z0-9._-]+/[a-z0-9._-]+
+# AWS S3 access keys
+(?i)s3_access_key_id\s*[:=]\s*['""]?[a-z0-9]{20}['""]?
+(?i)s3_secret_access_key\s*[:=]\s*['""]?[a-z0-9/+=]{40}['""]?
+# Azure Keys
+(?i)azure[_-]?client[_-]?secret\s*[:=]\s*['""]?[a-z0-9_~.-]{34,}['""]?
+(?i)azure[_-]?tenant[_-]?id\s*[:=]\s*['""]?[a-f0-9-]{36}['""]?
+(?i)azure[_-]?client[_-]?id\s*[:=]\s*['""]?[a-f0-9-]{36}['""]?
+(?i)azure[_-]?subscription[_-]?id\s*[:=]\s*['""]?[a-f0-9-]{36}['""]?
+
+# Azure Storage Account Keys
+(?i)azure[_-]?storage[_-]?(?:account|connection)[_-]?(?:key|string)\s*[:=]\s*['""]?[a-z0-9+/=]{88}['""]?
+DefaultEndpointsProtocol=https;AccountName=[a-z0-9]+;AccountKey=[A-Za-z0-9+/=]{88};
+
+# Azure in comments
+//\s*(?i)azure[_-]?(?:client|tenant|subscription)[_-]?(?:secret|id)\s*[:=]\s*['""]?[a-f0-9_~.-]{34,}['""]?
+#\s*(?i)azure[_-]?(?:client|tenant|subscription)[_-]?(?:secret|id)\s*[:=]\s*['""]?[a-f0-9_~.-]{34,}['""]?
+# GitHub Personal Access Tokens
+ghp_[a-zA-Z0-9]{36}
+gho_[a-zA-Z0-9]{36}
+ghu_[a-zA-Z0-9]{36}
+ghs_[a-zA-Z0-9]{36}
+ghr_[a-zA-Z0-9]{36}
+github_pat_[a-zA-Z0-9_]{82}
+
+# GitHub App Tokens
+(?i)github[_-]?token\s*[:=]\s*['""]?[a-z0-9]{40}['""]?
+(?i)gh[_-]?token\s*[:=]\s*['""]?gh[a-z]_[a-zA-Z0-9]{36}['""]?
+
+# GitHub in comments
+//\s*(?i)github[_-]?(?:token|pat|key)\s*[:=]\s*['""]?gh[a-z]_[a-zA-Z0-9]{36}['""]?
+#\s*(?i)github[_-]?(?:token|pat|key)\s*[:=]\s*['""]?gh[a-z]_[a-zA-Z0-9]{36}['""]?
+
+# GitHub CLI authentication
+gh auth login --with-token <<< [a-zA-Z0-9]{40}
+# GitLab Tokens
+glpat-[a-zA-Z0-9_-]{20}
+(?i)gitlab[_-]?token\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+(?i)gitlab[_-]?private[_-]?token\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+
+# GitLab CI variables
+(?i)CI_JOB_TOKEN\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+(?i)GITLAB_TOKEN\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+
+# GitLab in comments
+//\s*(?i)gitlab[_-]?(?:token|private[_-]?token)\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+#\s*(?i)gitlab[_-]?(?:token|private[_-]?token)\s*[:=]\s*['""]?[a-z0-9_-]{20,}['""]?
+
+# MySQL
+mysql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)mysql[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)mysql[_-]?host\s*[:=]\s*['""]?[a-z0-9.-]+['""]?
+(?i)mysql[_-]?user\s*[:=]\s*['""]?[a-z0-9_-]+['""]?
+
+# MySQL in comments
+//\s*(?i)mysql[_-]?(?:password|user|host|database)\s*[:=]\s*['""]?[^\s'"";]{4,}['""]?
+#\s*(?i)mysql[_-]?(?:password|user|host|database)\s*[:=]\s*['""]?[^\s'"";]{4,}['""]?
+
+# PostgreSQL
+postgresql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+postgres://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)postgres[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# SQL Server
+sqlserver://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+;database=[a-zA-Z0-9_.-]+
+mssql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)(?:mssql|sqlserver)[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Oracle
+oracle://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+jdbc:oracle:thin:@[a-zA-Z0-9_.-]+:[0-9]+:[a-zA-Z0-9_.-]+
+(?i)oracle[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# SQLite with passwords
+(?i)sqlite[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# JDBC Connection Strings
+jdbc:[a-z]+://[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+\?user=[a-zA-Z0-9_.-]+&password=[a-zA-Z0-9_.-]+
+
+
+# MySQL
+mysql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)mysql[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)mysql[_-]?host\s*[:=]\s*['""]?[a-z0-9.-]+['""]?
+(?i)mysql[_-]?user\s*[:=]\s*['""]?[a-z0-9_-]+['""]?
+
+# MySQL in comments
+//\s*(?i)mysql[_-]?(?:password|user|host|database)\s*[:=]\s*['""]?[^\s'"";]{4,}['""]?
+#\s*(?i)mysql[_-]?(?:password|user|host|database)\s*[:=]\s*['""]?[^\s'"";]{4,}['""]?
+
+# PostgreSQL
+postgresql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+postgres://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)postgres[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# SQL Server
+sqlserver://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+;database=[a-zA-Z0-9_.-]+
+mssql://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+(?i)(?:mssql|sqlserver)[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Oracle
+oracle://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+jdbc:oracle:thin:@[a-zA-Z0-9_.-]+:[0-9]+:[a-zA-Z0-9_.-]+
+(?i)oracle[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# SQLite with passwords
+(?i)sqlite[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# JDBC Connection Strings
+jdbc:[a-z]+://[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+\?user=[a-zA-Z0-9_.-]+&password=[a-zA-Z0-9_.-]+
+
+
+# MongoDB
+mongodb://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+/[a-zA-Z0-9_.-]+
+mongodb\+srv://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+
+(?i)mongo[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)mongodb[_-]?uri\s*[:=]\s*['""]?mongodb(?:\+srv)?://[^\s'"";]+['""]?
+
+# MongoDB in comments
+//\s*(?i)mongo(?:db)?[_-]?(?:password|uri|connection)\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+#\s*(?i)mongo(?:db)?[_-]?(?:password|uri|connection)\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Redis
+redis://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+
+rediss://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+
+(?i)redis[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)redis[_-]?auth\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Elasticsearch
+(?i)elastic[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)elasticsearch[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# CouchDB
+(?i)couchdb[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+http://[a-zA-Z0-9_.-]+:[a-zA-Z0-9_.-]+@[a-zA-Z0-9_.-]+:[0-9]+
+
+# Cassandra
+(?i)cassandra[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# RSA Private Keys
+-----BEGIN\s+RSA\s+PRIVATE\s+KEY-----[^-]*-----END\s+RSA\s+PRIVATE\s+KEY-----
+-----BEGIN\s+PRIVATE\s+KEY-----[^-]*-----END\s+PRIVATE\s+KEY-----
+-----BEGIN\s+EC\s+PRIVATE\s+KEY-----[^-]*-----END\s+EC\s+PRIVATE\s+KEY-----
+-----BEGIN\s+DSA\s+PRIVATE\s+KEY-----[^-]*-----END\s+DSA\s+PRIVATE\s+KEY-----
+-----BEGIN\s+OPENSSH\s+PRIVATE\s+KEY-----[^-]*-----END\s+OPENSSH\s+PRIVATE\s+KEY-----
+
+# PGP Private Keys
+-----BEGIN\s+PGP\s+PRIVATE\s+KEY\s+BLOCK-----[^-]*-----END\s+PGP\s+PRIVATE\s+KEY\s+BLOCK-----
+
+# SSH Private Keys
+ssh-rsa\s+[A-Za-z0-9+/=]+
+ssh-ed25519\s+[A-Za-z0-9+/=]+
+ssh-dss\s+[A-Za-z0-9+/=]+
+
+# Private keys in comments
+//\s*-----BEGIN[^-]*PRIVATE[^-]*KEY-----
+#\s*-----BEGIN[^-]*PRIVATE[^-]*KEY-----
+
+# Environment variables with private keys
+(?i)(?:export\s+|set\s+)?[A-Z_]*PRIVATE[_]?KEY[A-Z_]*\s*=\s*['""]?-----BEGIN[^"']*-----['""]?
+
+# SSH key files
+id_rsa\s*[:=]\s*['""]?-----BEGIN[^"']*PRIVATE[^"']*KEY-----[^"']*-----END[^"']*PRIVATE[^"']*KEY-----['""]?
+id_ed25519\s*[:=]\s*['""]?-----BEGIN[^"']*PRIVATE[^"']*KEY-----[^"']*-----END[^"']*PRIVATE[^"']*KEY-----['""]?
+
+# SSL/TLS Certificates
+-----BEGIN\s+CERTIFICATE-----[^-]*-----END\s+CERTIFICATE-----
+-----BEGIN\s+X509\s+CERTIFICATE-----[^-]*-----END\s+X509\s+CERTIFICATE-----
+-----BEGIN\s+TRUSTED\s+CERTIFICATE-----[^-]*-----END\s+TRUSTED\s+CERTIFICATE-----
+
+# Certificate Signing Requests
+-----BEGIN\s+CERTIFICATE\s+REQUEST-----[^-]*-----END\s+CERTIFICATE\s+REQUEST-----
+-----BEGIN\s+NEW\s+CERTIFICATE\s+REQUEST-----[^-]*-----END\s+NEW\s+CERTIFICATE\s+REQUEST-----
+
+# Public Keys
+-----BEGIN\s+PUBLIC\s+KEY-----[^-]*-----END\s+PUBLIC\s+KEY-----
+-----BEGIN\s+RSA\s+PUBLIC\s+KEY-----[^-]*-----END\s+RSA\s+PUBLIC\s+KEY-----
+
+# Certificate in environment variables
+(?i)(?:export\s+|set\s+)?[A-Z_]*(?:CERT|CERTIFICATE)[A-Z_]*\s*=\s*['""]?-----BEGIN[^"']*CERTIFICATE-----[^"']*-----END[^"']*CERTIFICATE-----['""]?
+
+# SSL/TLS Certificates
+-----BEGIN\s+CERTIFICATE-----[^-]*-----END\s+CERTIFICATE-----
+-----BEGIN\s+X509\s+CERTIFICATE-----[^-]*-----END\s+X509\s+CERTIFICATE-----
+-----BEGIN\s+TRUSTED\s+CERTIFICATE-----[^-]*-----END\s+TRUSTED\s+CERTIFICATE-----
+
+# Certificate Signing Requests
+-----BEGIN\s+CERTIFICATE\s+REQUEST-----[^-]*-----END\s+CERTIFICATE\s+REQUEST-----
+-----BEGIN\s+NEW\s+CERTIFICATE\s+REQUEST-----[^-]*-----END\s+NEW\s+CERTIFICATE\s+REQUEST-----
+
+# Public Keys
+-----BEGIN\s+PUBLIC\s+KEY-----[^-]*-----END\s+PUBLIC\s+KEY-----
+-----BEGIN\s+RSA\s+PUBLIC\s+KEY-----[^-]*-----END\s+RSA\s+PUBLIC\s+KEY-----
+
+# Certificate in environment variables
+(?i)(?:export\s+|set\s+)?[A-Z_]*(?:CERT|CERTIFICATE)[A-Z_]*\s*=\s*['""]?-----BEGIN[^"']*CERTIFICATE-----[^"']*-----END[^"']*CERTIFICATE-----['""]?
+
+# JWT Tokens
+eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*
+
+# JWT in various contexts
+(?i)jwt[_-]?token\s*[:=]\s*['""]?eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*['""]?
+(?i)bearer\s+eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*
+Authorization:\s*Bearer\s+eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*
+
+# JWT in comments
+//\s*(?i)jwt[_-]?token\s*[:=]\s*['""]?eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*['""]?
+#\s*(?i)jwt[_-]?token\s*[:=]\s*['""]?eyJ[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*\.[a-zA-Z0-9_-]*['""]?
+
+# Session IDs
+(?i)session[_-]?id\s*[:=]\s*['""]?[a-z0-9]{16,}['""]?
+(?i)jsessionid\s*[:=]\s*['""]?[a-z0-9]{16,}['""]?
+(?i)phpsessid\s*[:=]\s*['""]?[a-z0-9]{16,}['""]?
+(?i)asp\.net[_-]?sessionid\s*[:=]\s*['""]?[a-z0-9]{16,}['""]?
+
+# Session tokens in cookies
+Set-Cookie:\s*[a-zA-Z0-9_-]*(?:session|token|auth)[a-zA-Z0-9_-]*=[a-zA-Z0-9+/=]{16,}
+Cookie:\s*[a-zA-Z0-9_-]*(?:session|token|auth)[a-zA-Z0-9_-]*=[a-zA-Z0-9+/=]{16,}
+
+# Slack Tokens
+xox[baprs]-[0-9a-zA-Z-]{10,48}
+xoxe.xox[bp]-[0-9]-[a-zA-Z0-9-]+
+
+# Slack webhooks
+https://hooks\.slack\.com/services/[A-Z0-9]+/[A-Z0-9]+/[a-zA-Z0-9]+
+
+# Slack in comments
+//\s*(?i)slack[_-]?(?:token|webhook|bot[_-]?token)\s*[:=]\s*['""]?xox[a-z]-[0-9a-zA-Z-]{10,48}['""]?
+#\s*(?i)slack[_-]?(?:token|webhook|bot[_-]?token)\s*[:=]\s*['""]?xox[a-z]-[0-9a-zA-Z-]{10,48}['""]?
+
+# Discord Tokens
+[MN][A-Za-z\d]{23}\.[A-Za-z\d-_]{6}\.[A-Za-z\d-_]{27}
+mfa\.[a-z0-9_-]{84}
+
+# Discord webhooks
+https://discord\.com/api/webhooks/[0-9]+/[a-zA-Z0-9_-]+
+https://discordapp\.com/api/webhooks/[0-9]+/[a-zA-Z0-9_-]+
+
+# Discord in comments
+//\s*(?i)discord[_-]?(?:token|webhook|bot[_-]?token)\s*[:=]\s*['""]?[MN][A-Za-z\d]{23}\.[A-Za-z\d-_]{6}\.[A-Za-z\d-_]{27}['""]?
+#\s*(?i)discord[_-]?(?:token|webhook|bot[_-]?token)\s*[:=]\s*['""]?[MN][A-Za-z\d]{23}\.[A-Za-z\d-_]{6}\.[A-Za-z\d-_]{27}['""]?
+
+# Telegram Bot Tokens
+[0-9]{8,10}:[a-zA-Z0-9_-]{35}
+
+# Telegram in comments
+//\s*(?i)telegram[_-]?(?:token|bot[_-]?token)\s*[:=]\s*['""]?[0-9]{8,10}:[a-zA-Z0-9_-]{35}['""]?
+#\s*(?i)telegram[_-]?(?:token|bot[_-]?token)\s*[:=]\s*['""]?[0-9]{8,10}:[a-zA-Z0-9_-]{35}['""]?
+
+# Twilio
+SK[a-z0-9]{32}
+AC[a-z0-9]{32}
+(?i)twilio[_-]?auth[_-]?token\s*[:=]\s*['""]?[a-z0-9]{32}['""]?
+(?i)twilio[_-]?account[_-]?sid\s*[:=]\s*['""]?AC[a-z0-9]{32}['""]?
+
+# Twilio in comments
+//\s*(?i)twilio[_-]?(?:auth[_-]?token|account[_-]?sid)\s*[:=]\s*['""]?[AS][CK][a-z0-9]{32}['""]?
+#\s*(?i)twilio[_-]?(?:auth[_-]?token|account[_-]?sid)\s*[:=]\s*['""]?[AS][CK][a-z0-9]{32}['""]?
+
+# SendGrid
+SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}
+(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+
+# SendGrid in comments
+//\s*(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+#\s*(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+
+# Mailgun
+key-[a-z0-9]{32}
+(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+(?i)mailgun[_-]?domain\s*[:=]\s*['""]?[a-z0-9.-]+['""]?
+
+# Mailgun in comments
+//\s*(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+#\s*(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+
+# Mailchimp
+[a-f0-9]{32}-us[0-9]{1,2}
+(?i)mailchimp[_-]?api[_-]?key\s*[:=]\s*['""]?[a-f0-9]{32}-us[0-9]{1,2}['""]?
+
+# AWS SES
+(?i)ses[_-]?(?:access[_-]?key|secret[_-]?key)\s*[:=]\s*['""]?[a-zA-Z0-9+/=]{20,}['""]?
+
+# Postmark
+[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}
+(?i)postmark[_-]?(?:server[_-]?token|api[_-]?key)\s*[:=]\s*['""]?[a-f0-9-]{36}['""]?
+
+# SendGrid
+SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}
+(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+
+# SendGrid in comments
+//\s*(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+#\s*(?i)sendgrid[_-]?api[_-]?key\s*[:=]\s*['""]?SG\.[a-zA-Z0-9_-]{22}\.[a-zA-Z0-9_-]{43}['""]?
+
+# Mailgun
+key-[a-z0-9]{32}
+(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+(?i)mailgun[_-]?domain\s*[:=]\s*['""]?[a-z0-9.-]+['""]?
+
+# Mailgun in comments
+//\s*(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+#\s*(?i)mailgun[_-]?api[_-]?key\s*[:=]\s*['""]?key-[a-z0-9]{32}['""]?
+
+# Mailchimp
+[a-f0-9]{32}-us[0-9]{1,2}
+(?i)mailchimp[_-]?api[_-]?key\s*[:=]\s*['""]?[a-f0-9]{32}-us[0-9]{1,2}['""]?
+
+# AWS SES
+(?i)ses[_-]?(?:access[_-]?key|secret[_-]?key)\s*[:=]\s*['""]?[a-zA-Z0-9+/=]{20,}['""]?
+
+# Postmark
+[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}
+(?i)postmark[_-]?(?:server[_-]?token|api[_-]?key)\s*[:=]\s*['""]?[a-f0-9-]{36}['""]?
+
+# Stripe
+sk_live_[0-9a-zA-Z]{24}
+pk_live_[0-9a-zA-Z]{24}
+sk_test_[0-9a-zA-Z]{24}
+pk_test_[0-9a-zA-Z]{24}
+rk_live_[0-9a-zA-Z]{24}
+rk_test_[0-9a-zA-Z]{24}
+
+# Stripe webhooks
+whsec_[a-zA-Z0-9]{32,}
+
+# Stripe in comments
+//\s*(?i)stripe[_-]?(?:secret|publishable|restricted)[_-]?key\s*[:=]\s*['""]?[sp]k_(?:live|test)_[0-9a-zA-Z]{24}['""]?
+#\s*(?i)stripe[_-]?(?:secret|publishable|restricted)[_-]?key\s*[:=]\s*['""]?[sp]k_(?:live|test)_[0-9a-zA-Z]{24}['""]?
+
+# PayPal
+access_token\$production\$[a-z0-9]{16}\$[a-z0-9]{32}
+access_token\$sandbox\$[a-z0-9]{16}\$[a-z0-9]{32}
+(?i)paypal[_-]?(?:client[_-]?id|client[_-]?secret)\s*[:=]\s*['""]?[a-zA-Z0-9_-]{80}['""]?
+
+# PayPal in comments
+//\s*(?i)paypal[_-]?(?:client[_-]?id|client[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9_$-]{32,}['""]?
+#\s*(?i)paypal[_-]?(?:client[_-]?id|client[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9_$-]{32,}['""]?
+
+# Square
+sq0atp-[0-9A-Za-z_-]{22}
+sq0csp-[0-9A-Za-z_-]{43}
+sq0idb-[0-9A-Za-z_-]{22}
+
+# Square in comments
+//\s*(?i)square[_-]?(?:access[_-]?token|application[_-]?id)\s*[:=]\s*['""]?sq0[a-z]{3}-[0-9A-Za-z_-]{22,43}['""]?
+#\s*(?i)square[_-]?(?:access[_-]?token|application[_-]?id)\s*[:=]\s*['""]?sq0[a-z]{3}-[0-9A-Za-z_-]{22,43}['""]?
+
+# Braintree
+(?i)braintree[_-]?(?:merchant[_-]?id|public[_-]?key|private[_-]?key)\s*[:=]\s*['""]?[a-zA-Z0-9]{16,}['""]?
+
+# Facebook/Meta
+(?i)facebook[_-]?(?:app[_-]?id|app[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{15,}['""]?
+(?i)fb[_-]?(?:app[_-]?id|app[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{15,}['""]?
+
+# Facebook in comments
+//\s*(?i)(?:facebook|fb)[_-]?(?:app[_-]?id|app[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{15,}['""]?
+#\s*(?i)(?:facebook|fb)[_-]?(?:app[_-]?id|app[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{15,}['""]?
+
+# Twitter/X API
+(?i)twitter[_-]?(?:consumer[_-]?key|consumer[_-]?secret|access[_-]?token|access[_-]?token[_-]?secret)\s*[:=]\s*['""]?[a-zA-Z0-9]{25,}['""]?
+(?i)x[_-]?(?:consumer[_-]?key|consumer[_-]?secret|access[_-]?token|bearer[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{25,}['""]?
+
+# Google Analytics
+UA-[0-9]{4,9}-[0-9]{1,4}
+G-[A-Z0-9]{10}
+(?i)google[_-]?analytics[_-]?(?:tracking[_-]?id|measurement[_-]?id)\s*[:=]\s*['""]?(?:UA-[0-9-]+|G-[A-Z0-9]{10})['""]?
+
+# Google Analytics in comments
+//\s*(?i)(?:ga|google[_-]?analytics)[_-]?(?:tracking[_-]?id|measurement[_-]?id)\s*[:=]\s*['""]?(?:UA-[0-9-]+|G-[A-Z0-9]{10})['""]?
+#\s*(?i)(?:ga|google[_-]?analytics)[_-]?(?:tracking[_-]?id|measurement[_-]?id)\s*[:=]\s*['""]?(?:UA-[0-9-]+|G-[A-Z0-9]{10})['""]?
+
+# LinkedIn API
+(?i)linkedin[_-]?(?:client[_-]?id|client[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{10,}['""]?
+
+# Instagram API
+(?i)instagram[_-]?(?:client[_-]?id|client[_-]?secret|access[_-]?token)\s*[:=]\s*['""]?[a-zA-Z0-9]{15,}['""]?
+
+# Generic password patterns
+(?i)password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)passwd\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)pwd\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)pass\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Passwords in comments
+//\s*(?i)(?:password|passwd|pwd|pass)\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+#\s*(?i)(?:password|passwd|pwd|pass)\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Database passwords
+(?i)db[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)database[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)db[_-]?pass\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Admin passwords
+(?i)admin[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)root[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)superuser[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Application-specific passwords
+(?i)(?:app|application)[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)user[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)login[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Service passwords
+(?i)service[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)auth[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# FTP/SFTP passwords
+(?i)ftp[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)sftp[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Email passwords
+(?i)email[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)smtp[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)imap[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)pop3[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# WiFi passwords
+(?i)wifi[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)wpa[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+(?i)network[_-]?password\s*[:=]\s*['""]?[^\s'"";]{8,}['""]?
+
+# Default passwords (commonly used)
+(?i)password\s*[:=]\s*['""]?(?:password|123456|admin|root|default|guest|user)['""]?
+(?i)(?:user|admin|root)\s*[:=]\s*['""]?[a-zA-Z0-9_-]+['""]?\s*[,;]\s*(?i)(?:password|pass|pwd)\s*[:=]\s*['""]?[^\s'"";]{4,}['""]?
+# Admin panels
+/admin[/]?
+/administrator[/]?
+/wp-admin[/]?
+/phpmyadmin[/]?
+/cpanel[/]?
+/webmin[/]?
+/manager[/]?
+/console[/]?
+/dashboard[/]?
+
+# API endpoints with potential secrets
+/api/v[0-9]+/keys
+/api/v[0-9]+/tokens
+/api/v[0-9]+/secrets
+/api/v[0-9]+/config
+/api/v[0-9]+/admin
+/.env
+/config/
+/.git/config
+/.svn/
+/.htaccess
+/.htpasswd
+
+# Database admin interfaces
+/phpMyAdmin[/]?
+/adminer[/]?
+/mysql[/]?
+/postgres[/]?
+/mongodb[/]?
+
+# Cloud service endpoints
+/aws/credentials
+/azure/config
+/gcp/service-account
+/.aws/credentials
+/.azure/credentials
+
+# Debug and development endpoints
+/debug[/]?
+/test[/]?
+/dev[/]?
+/trace[/]?
+/health[/]?
+/metrics[/]?
+/status[/]?
+
+# Endpoints in comments
+//\s*/(?:admin|api|config|debug|test)[^\s]*
+#\s*/(?:admin|api|config|debug|test)[^\s]*
 # API Keys and Tokens
 [a-zA-Z0-9_-]*api[_-]?key[a-zA-Z0-9_-]*\s*[:=]\s*['"'"'"][a-zA-Z0-9_-]{8,}['"'"'"]
 [a-zA-Z0-9_-]*token[a-zA-Z0-9_-]*\s*[:=]\s*['"'"'"][a-zA-Z0-9_-]{8,}['"'"'"]
@@ -502,6 +1059,9 @@ Thumbs.db
 
 # Secret WAR files
 .secret-war/
+secret-war.sh
+install.sh
+Secret_WAR_Install_v3.sh
 EOF
 }
 
@@ -927,7 +1487,7 @@ REPORT_EOF
     if [[ -n "$results" ]]; then
         local total_issues=$(echo "$results" | wc -l)
         cat >> "$report_file" << ISSUES_EOF
-    <div class="warning">⚠️ SECURITY VULNERABILITIES DETECTED ⚠️</div>
+    <div class="warning">⚠️ OOPS! We Lost WAR..SECURITY VULNERABILITIES DETECTED ⚠️</div>
     <div class="stats">
         <div>Issues Found: $total_issues</div>
         <div>Scan Time: $(date '+%Y-%m-%d %H:%M:%S')</div>
@@ -999,8 +1559,8 @@ main() {
     if [[ -n "$results" ]]; then
         echo -e "${RED}"
         echo "╔════════════════════════════════════════════════════════════════╗"
-        echo "║                    SECURITY ALERT                             ║"
-        echo "║            Dread it, Run from it. Destiny Still arrives       ║"
+        echo "║                    SECURITY ALERT                              ║"
+        echo "║            Dread it, Run from it. Destiny Still arrives        ║"
         echo "╚════════════════════════════════════════════════════════════════╝"
         echo -e "${NC}"
         
