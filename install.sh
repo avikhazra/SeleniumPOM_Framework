@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CONFIG_DIR="$HOME/.secret-war"
+CONFIG_DIR=""  # Will be set based on installation type
 INSTALL_TYPE=""
 VERBOSE=false
 FORCE_INSTALL=false
@@ -56,6 +56,37 @@ print_step() { echo -e "${PURPLE}🔄 $1${NC}"; }
 # Check if command exists
 command_exists() {
     command -v "$1" >/dev/null 2>&1
+}
+
+# Set configuration directory based on installation type
+set_config_dir() {
+    case $INSTALL_TYPE in
+        "global"|"advanced")
+            CONFIG_DIR="$HOME/.secret-war"
+            ;;
+        "local")
+            if git rev-parse --git-dir >/dev/null 2>&1; then
+                CONFIG_DIR="$(git rev-parse --show-toplevel)/.secret-war"
+            else
+                print_error "Not in a git repository for local installation!"
+                exit 1
+            fi
+            ;;
+        "update")
+            # For updates, check both locations
+            if [[ -d "$HOME/.secret-war" ]]; then
+                CONFIG_DIR="$HOME/.secret-war"
+            elif git rev-parse --git-dir >/dev/null 2>&1 && [[ -d "$(git rev-parse --show-toplevel)/.secret-war" ]]; then
+                CONFIG_DIR="$(git rev-parse --show-toplevel)/.secret-war"
+            else
+                print_error "No existing Secret WAR installation found!"
+                exit 1
+            fi
+            ;;
+        *)
+            CONFIG_DIR="$HOME/.secret-war"
+            ;;
+    esac
 }
 
 # Check system requirements
@@ -111,8 +142,8 @@ check_requirements() {
 show_menu() {
     echo -e "${BOLD}${CYAN}Installation Options:${NC}"
     echo ""
-    echo -e "${GREEN}1)${NC} 🌍 Global Installation    - Protect all repositories (Recommended)"
-    echo -e "${GREEN}2)${NC} 📁 Local Installation     - Protect current repository only"
+    echo -e "${GREEN}1)${NC} 🌍 Global Installation    - Protect all repositories (Home config)"
+    echo -e "${GREEN}2)${NC} 📁 Local Installation     - Protect current repository (Local config)"
     echo -e "${GREEN}3)${NC} ⚙️  Advanced Installation  - Custom configuration"
     echo -e "${GREEN}4)${NC} 🔄 Update Installation    - Update existing installation"
     echo -e "${GREEN}5)${NC} 🗑️  Uninstall             - Remove Secret WAR"
@@ -175,13 +206,16 @@ show_help() {
     echo -e "${GREEN}Global Installation:${NC}"
     echo "  • Installs hooks for all repositories (current and future)"
     echo "  • Uses Git template directory (~/.git-templates)"
+    echo "  • Configuration stored in ~/.secret-war"
     echo "  • Automatically applies to new repositories via 'git init' or 'git clone'"
     echo "  • Recommended for most users"
     echo ""
     echo -e "${GREEN}Local Installation:${NC}"
     echo "  • Installs hook only in current repository"
+    echo "  • Configuration stored in .secret-war/ (repository root)"
     echo "  • Must be run from within a Git repository"
-    echo "  • Useful for testing or repository-specific requirements"
+    echo "  • Repository-specific configuration"
+    echo "  • Useful for project-specific security requirements"
     echo ""
     echo -e "${GREEN}Advanced Installation:${NC}"
     echo "  • Custom configuration options"
@@ -255,6 +289,26 @@ parse_arguments() {
 # Create configuration directory and files
 setup_config() {
     print_step "Setting up configuration..."
+    
+    if [[ "$INSTALL_TYPE" == "local" ]]; then
+        print_info "Using local configuration directory: $CONFIG_DIR"
+        # Add .secret-war to .gitignore for local installations
+        local gitignore_file="$(git rev-parse --show-toplevel)/.gitignore"
+        if [[ -f "$gitignore_file" ]]; then
+            if ! grep -q "^\.secret-war/" "$gitignore_file" 2>/dev/null; then
+                echo "" >> "$gitignore_file"
+                echo "# Secret WAR configuration" >> "$gitignore_file"
+                echo ".secret-war/" >> "$gitignore_file"
+                print_info "Added .secret-war/ to .gitignore"
+            fi
+        else
+            echo "# Secret WAR configuration" > "$gitignore_file"
+            echo ".secret-war/" >> "$gitignore_file"
+            print_info "Created .gitignore with .secret-war/ entry"
+        fi
+    else
+        print_info "Using global configuration directory: $CONFIG_DIR"
+    fi
     
     mkdir -p "$CONFIG_DIR" "$CONFIG_DIR/reports"
     
@@ -445,6 +499,9 @@ logs/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Secret WAR files
+.secret-war/
 EOF
 }
 
@@ -473,57 +530,76 @@ EOF
 
 # Create functions library
 create_functions_library() {
-    # Extract functions from main script or create them
     local functions_file="$CONFIG_DIR/secret-war-functions.sh"
     
-    cat > "$functions_file" << 'FUNCTIONS_EOF'
+    cat > "$functions_file" << FUNCTIONS_EOF
 # Secret WAR Functions Library
+
+# Determine config directory based on context
+get_config_dir() {
+    # Check if we're in a git repo with local config
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        local repo_root="\$(git rev-parse --show-toplevel)"
+        if [[ -d "\$repo_root/.secret-war" ]]; then
+            echo "\$repo_root/.secret-war"
+            return 0
+        fi
+    fi
+    
+    # Fallback to global config
+    echo "\$HOME/.secret-war"
+}
+
+# Initialize config directory variable
+CONFIG_DIR="\$(get_config_dir)"
 
 # Load patterns from config
 load_patterns() {
     local patterns=()
-    while IFS= read -r line; do
-        if [[ ! "$line" =~ ^[[:space:]]*# ]] && [[ -n "${line// }" ]]; then
-            patterns+=("$line")
-        fi
-    done < "$CONFIG_DIR/patterns.conf"
-    printf '%s\n' "${patterns[@]}"
+    if [[ -f "\$CONFIG_DIR/patterns.conf" ]]; then
+        while IFS= read -r line; do
+            if [[ ! "\$line" =~ ^[[:space:]]*# ]] && [[ -n "\${line// }" ]]; then
+                patterns+=("\$line")
+            fi
+        done < "\$CONFIG_DIR/patterns.conf"
+    fi
+    printf '%s\n' "\${patterns[@]}"
 }
 
 # Load whitelist files
 load_whitelist_files() {
     local files=()
-    if [[ -f "$CONFIG_DIR/whitelist-files.conf" ]]; then
+    if [[ -f "\$CONFIG_DIR/whitelist-files.conf" ]]; then
         while IFS= read -r line; do
-            if [[ ! "$line" =~ ^[[:space:]]*# ]] && [[ -n "${line// }" ]]; then
-                files+=("$line")
+            if [[ ! "\$line" =~ ^[[:space:]]*# ]] && [[ -n "\${line// }" ]]; then
+                files+=("\$line")
             fi
-        done < "$CONFIG_DIR/whitelist-files.conf"
+        done < "\$CONFIG_DIR/whitelist-files.conf"
     fi
-    printf '%s\n' "${files[@]}"
+    printf '%s\n' "\${files[@]}"
 }
 
 # Load whitelist patterns
 load_whitelist_patterns() {
     local patterns=()
-    if [[ -f "$CONFIG_DIR/whitelist-patterns.conf" ]]; then
+    if [[ -f "\$CONFIG_DIR/whitelist-patterns.conf" ]]; then
         while IFS= read -r line; do
-            if [[ ! "$line" =~ ^[[:space:]]*# ]] && [[ -n "${line// }" ]]; then
-                patterns+=("$line")
+            if [[ ! "\$line" =~ ^[[:space:]]*# ]] && [[ -n "\${line// }" ]]; then
+                patterns+=("\$line")
             fi
-        done < "$CONFIG_DIR/whitelist-patterns.conf"
+        done < "\$CONFIG_DIR/whitelist-patterns.conf"
     fi
-    printf '%s\n' "${patterns[@]}"
+    printf '%s\n' "\${patterns[@]}"
 }
 
 # Check if file should be whitelisted
 is_file_whitelisted() {
-    local file="$1"
+    local file="\$1"
     local whitelist_files
     readarray -t whitelist_files < <(load_whitelist_files)
     
-    for pattern in "${whitelist_files[@]}"; do
-        if [[ "$file" == *"$pattern"* ]]; then
+    for pattern in "\${whitelist_files[@]}"; do
+        if [[ "\$file" == *"\$pattern"* ]]; then
             return 0
         fi
     done
@@ -532,12 +608,12 @@ is_file_whitelisted() {
 
 # Check if match should be whitelisted
 is_match_whitelisted() {
-    local match="$1"
+    local match="\$1"
     local whitelist_patterns
     readarray -t whitelist_patterns < <(load_whitelist_patterns)
     
-    for pattern in "${whitelist_patterns[@]}"; do
-        if echo "$match" | grep -qE "$pattern"; then
+    for pattern in "\${whitelist_patterns[@]}"; do
+        if echo "\$match" | grep -qE "\$pattern"; then
             return 0
         fi
     done
@@ -546,7 +622,7 @@ is_match_whitelisted() {
 
 # Get staged files
 get_staged_files() {
-    git diff --cached --name-only --diff-filter=ACM | grep -v -E '\.(gitignore|gitattributes)$|\.git/|\.vscode/|\.idea/' || true
+    git diff --cached --name-only --diff-filter=ACM | grep -v -E '\.(gitignore|gitattributes)$|\.git/|\.vscode/|\.idea/|\.secret-war/' || true
 }
 FUNCTIONS_EOF
 }
@@ -605,6 +681,7 @@ install_local_hook() {
     repo_name=$(basename "$(git rev-parse --show-toplevel)")
     
     print_success "Local hook installed for repository: $repo_name"
+    print_info "Configuration stored locally in: $CONFIG_DIR"
 }
 
 # Create pre-commit hook file
@@ -637,10 +714,21 @@ create_precommit_hook() {
 
 set -euo pipefail
 
-# Configuration
-CONFIG_DIR="$HOME/.secret-war"
+# Determine config directory (local takes precedence over global)
+get_config_dir() {
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        local repo_root="$(git rev-parse --show-toplevel)"
+        if [[ -d "$repo_root/.secret-war" ]]; then
+            echo "$repo_root/.secret-war"
+            return 0
+        fi
+    fi
+    echo "$HOME/.secret-war"
+}
+
+CONFIG_DIR="$(get_config_dir)"
 REPORT_DIR="$CONFIG_DIR/reports"
-TEMP_DIR="/tmp/secret-war-$"
+TEMP_DIR="/tmp/secret-war-$$"
 MAX_THREADS=8
 
 # Colors
@@ -662,23 +750,13 @@ trap cleanup EXIT
 # Check if Secret WAR is installed
 if [[ ! -f "$CONFIG_DIR/secret-war-functions.sh" ]]; then
     echo -e "${RED}❌ Secret WAR not properly installed!${NC}"
-    echo -e "${YELLOW}Please run the installer: curl -sSL https://raw.githubusercontent.com/your-repo/secret-war/main/install.sh | bash${NC}"
+    echo -e "${YELLOW}Configuration directory: $CONFIG_DIR${NC}"
+    echo -e "${YELLOW}Please run the installer to set up Secret WAR${NC}"
     exit 1
 fi
 
 # Source the main Secret WAR functions
 source "$CONFIG_DIR/secret-war-functions.sh"
-
-# Load patterns from config
-load_patterns() {
-    local patterns=()
-    while IFS= read -r line; do
-        if [[ ! "$line" =~ ^[[:space:]]*# ]] && [[ -n "${line// }" ]]; then
-            patterns+=("$line")
-        fi
-    done < "$CONFIG_DIR/patterns.conf"
-    printf '%s\n' "${patterns[@]}"
-}
 
 # Scan file for patterns
 scan_file() {
@@ -827,14 +905,24 @@ generate_html_report() {
             font-size: 2em;
             color: #00ff00;
         }
+        .config-info {
+            text-align: center;
+            margin: 10px 0;
+            color: #00ffff;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="title">SECRET WAR</div>
         <div style="color: #ff0000;">Dread it, Run from it. Destiny Still arrives</div>
+        <div class="config-info">Config: CONFIG_DIR_PLACEHOLDER</div>
     </div>
 REPORT_EOF
+
+    # Replace config directory placeholder
+    sed -i "s|CONFIG_DIR_PLACEHOLDER|$CONFIG_DIR|g" "$report_file"
 
     if [[ -n "$results" ]]; then
         local total_issues=$(echo "$results" | wc -l)
@@ -890,6 +978,7 @@ show_success_message() {
 # Main execution
 main() {
     echo -e "${YELLOW}🛡️  Secret WAR Security Scan Starting...${NC}"
+    echo -e "${BLUE}Using configuration: $CONFIG_DIR${NC}"
     
     local staged_files
     readarray -t staged_files < <(get_staged_files)
@@ -984,8 +1073,8 @@ install_advanced() {
     
     # Choose installation type
     echo -e "${YELLOW}1. Installation Type:${NC}"
-    echo "1) Global (recommended)"
-    echo "2) Local"
+    echo "1) Global (config in ~/.secret-war)"
+    echo "2) Local (config in ./.secret-war)"
     echo -ne "${CYAN}Choose [1-2]: ${NC}"
     read -r install_choice
     
@@ -1014,12 +1103,12 @@ install_advanced() {
     # Report configuration
     echo ""
     echo -e "${YELLOW}4. Report Configuration:${NC}"
-    echo -ne "${CYAN}Custom report directory [default: ~/.secret-war/reports]: ${NC}"
-    read -r report_dir
-    
-    if [[ -z "$report_dir" ]]; then
-        report_dir="$CONFIG_DIR/reports"
+    if [[ "$local_install_type" == "local" ]]; then
+        echo -ne "${CYAN}Custom report directory [default: ./.secret-war/reports]: ${NC}"
+    else
+        echo -ne "${CYAN}Custom report directory [default: ~/.secret-war/reports]: ${NC}"
     fi
+    read -r report_dir
     
     # Auto-open reports
     echo ""
@@ -1032,7 +1121,15 @@ install_advanced() {
     echo "Installation Type: $local_install_type"
     echo "Thread Count: $thread_count"
     echo "Custom Patterns: ${custom_patterns:-N}"
-    echo "Report Directory: $report_dir"
+    if [[ -n "$report_dir" ]]; then
+        echo "Report Directory: $report_dir"
+    else
+        if [[ "$local_install_type" == "local" ]]; then
+            echo "Report Directory: ./.secret-war/reports"
+        else
+            echo "Report Directory: ~/.secret-war/reports"
+        fi
+    fi
     echo "Auto-open Reports: ${auto_open:-Y}"
     echo ""
     
@@ -1044,9 +1141,17 @@ install_advanced() {
         exit 0
     fi
     
+    # Set installation type for the rest of the process
+    INSTALL_TYPE="$local_install_type"
+    
+    # Set config directory based on installation type
+    set_config_dir
+    
     # Apply configuration
     export MAX_THREADS="$thread_count"
-    mkdir -p "$report_dir"
+    if [[ -n "$report_dir" ]]; then
+        mkdir -p "$report_dir"
+    fi
     
     # Perform installation
     if [[ "$local_install_type" == "global" ]]; then
@@ -1067,10 +1172,16 @@ install_advanced() {
 update_installation() {
     print_step "Updating Secret WAR installation..."
     
+    # Set config directory for updates
+    set_config_dir
+    
     if [[ ! -d "$CONFIG_DIR" ]]; then
-        print_error "Secret WAR not installed. Use --global or --local to install."
+        print_error "Secret WAR not installed at: $CONFIG_DIR"
+        print_info "Use --global or --local to install."
         exit 1
     fi
+    
+    print_info "Updating installation at: $CONFIG_DIR"
     
     # Backup existing configuration
     local backup_dir="$CONFIG_DIR/backup-$(date +%s)"
@@ -1095,6 +1206,15 @@ update_installation() {
     # Update hooks
     if git config --global --get init.templateDir >/dev/null 2>&1; then
         install_global_hook
+    fi
+    
+    # Check for local installation
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        local git_dir
+        git_dir="$(git rev-parse --git-dir)"
+        if [[ -f "$git_dir/hooks/pre-commit" ]] && grep -q "Secret WAR" "$git_dir/hooks/pre-commit" 2>/dev/null; then
+            install_local_hook
+        fi
     fi
     
     print_success "Secret WAR updated successfully"
@@ -1125,10 +1245,24 @@ uninstall() {
         fi
     fi
     
-    # Remove configuration
-    if [[ -d "$CONFIG_DIR" ]]; then
-        rm -rf "$CONFIG_DIR"
-        print_info "Configuration directory removed"
+    # Remove global configuration
+    if [[ -d "$HOME/.secret-war" ]]; then
+        rm -rf "$HOME/.secret-war"
+        print_info "Global configuration directory removed"
+    fi
+    
+    # Remove local configuration if in a git repo
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        local repo_root
+        repo_root="$(git rev-parse --show-toplevel)"
+        if [[ -d "$repo_root/.secret-war" ]]; then
+            echo -ne "${CYAN}Remove local configuration from current repository? [y/N]: ${NC}"
+            read -r remove_local
+            if [[ "$remove_local" =~ ^[Yy]$ ]]; then
+                rm -rf "$repo_root/.secret-war"
+                print_info "Local configuration directory removed"
+            fi
+        fi
     fi
     
     print_success "Secret WAR uninstalled successfully"
@@ -1146,9 +1280,12 @@ show_installation_summary() {
         "global")
             echo "✅ Global hooks installed - all repositories are now protected"
             echo "✅ New repositories will automatically use Secret WAR"
+            echo "📁 Configuration: $CONFIG_DIR"
             ;;
         "local")
             echo "✅ Local hook installed for current repository"
+            echo "✅ Repository-specific configuration created"
+            echo "📁 Configuration: $CONFIG_DIR"
             echo "💡 Run with --global to protect all repositories"
             ;;
         "advanced")
@@ -1165,6 +1302,15 @@ show_installation_summary() {
     echo "🔍 Pattern Whitelist: $CONFIG_DIR/whitelist-patterns.conf"
     echo "📊 Reports: $CONFIG_DIR/reports/"
     
+    if [[ "$INSTALL_TYPE" == "local" ]]; then
+        echo ""
+        echo -e "${YELLOW}Local Installation Notes:${NC}"
+        echo "• Configuration is stored locally in the repository"
+        echo "• .secret-war/ has been added to .gitignore"
+        echo "• Each team member needs to run the installer"
+        echo "• Configuration can be customized per repository"
+    fi
+    
     echo ""
     echo -e "${YELLOW}Testing Your Installation:${NC}"
     echo "1. Create a test file with a fake API key:"
@@ -1177,7 +1323,7 @@ show_installation_summary() {
     echo -e "${YELLOW}Need Help?${NC}"
     echo "🆘 Documentation: README.md"
     echo "⚙️  Edit patterns: vim $CONFIG_DIR/patterns.conf"
-    echo "🔧 Troubleshooting: $CONFIG_DIR/secret-war.sh --help"
+    echo "🔧 Troubleshooting: Check hook logs or reinstall"
     
     echo ""
     echo -e "${GREEN}Happy secure coding! 🛡️${NC}"
@@ -1198,6 +1344,9 @@ main() {
         show_menu
         get_user_choice
     fi
+    
+    # Set configuration directory based on installation type
+    set_config_dir
     
     # Setup configuration
     setup_config
